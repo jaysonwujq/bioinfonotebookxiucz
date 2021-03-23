@@ -33,3 +33,6 @@ https://github.com/jtamames/SqueezeMeta
 ## 人体微生物
 https://mp.weixin.qq.com/s/Rsc-jb3EiQGEUb-FAWDAkA
 
+https://umccr.org/blog/oncoviral-integration/
+
+https://github.com/vladsaveliev/oviraptor

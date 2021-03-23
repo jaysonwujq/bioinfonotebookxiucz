@@ -18,6 +18,8 @@ image 文件生成的容器实例，本身也是一个文件，称为容器文�
 
 ## 基础信息
 ```bash
+ <仓库名>:<标签>
+
  --version
 docker version
 docker info
@@ -27,9 +29,11 @@ docker ps
 docker stop
 #启动容器
 docker start
-docker ps -a查看终止状态的容器
+docker ps -a #查看所有运行或者不运行容器
+docker stop $(docker ps -a -q) 或者 docker stop $(docker ps -aq) #停止所有的container（容器），这样才能够删除其中的images：
+docker rm $(docker ps -a -q) 或者 docker rm $(docker ps -aq) #如果想要删除所有container（容器）的话再加一个指令
 docker rm -f webserver命令来移除正在运行的容器
-docker rm $( ps -a -q) 删除所有容器
+
 docker images 列出本地镜像
 docker rmi 删除镜像
 docker run —name NAMES IMAGE 将镜像IMAGE生成NAMES的容器
@@ -42,17 +46,19 @@ sudo usermod -aG docker $USER
 
 
 #复制容器内容到物理机
-  cp  testIpMap:/testData    / 
+docker  cp  testIpMap:/testData    / 
 注：将容器testIpMap的/目录下的testData文件夹复制到物理机的 / 目录下
 
 #复制物理机内容到容器
-  cp  物理机目录    容器名：容器目录
+docker  cp  物理机目录    容器名：容器目录
 
 ```
 ## 容器使用
 
 ### 在容器内运行应用程序
 ```bash
+$docker run -dit ubuntu:15.10 /bin/echo "Hello world" #生成id，方便`docker  exec -it 3b1c944cda86 /bin/sh` 进去
+
 $docker run -t -i ubuntu:15.10 /bin/echo "Hello world"
 
 #:  的二进制执行文件。

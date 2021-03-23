@@ -25,8 +25,13 @@ bcftools view -q 0.01:minor chr.all.vcf.gz
 bcftools view -e 'INFO/IMPUTED=1' or bcftools view -i 'INFO/IMPUTED=0'
 ```
 
+```
+FORMAT/AD[0:1] - number of ALT alleles
+FORMAT/AD[0:0] - number of REF alleles
+```
 ## 注释
 ```
 export BCFTOOLS_PLUGINS=/local_data1/MED/programs/zhangbo/bcftools/bcftools-1.9/plugins/
 bcftools +fill-tags my.vcf > out.vcf
 ```
+

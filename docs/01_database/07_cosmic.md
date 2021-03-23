@@ -11,5 +11,11 @@ Mutations that lie within the gene boundary of a protein-coding transcript from 
 Non-coding mutations
 Mutations that lie within an intergenic region of the genome. These are identified with a genomic identifier (COSV), a legacy mutation identifier (COSM or COSN).
 3. 新的稳定基因组突变标识符（COSV）指示了变异在基因组上的确定位置。这些唯一的标识符使变异可以在GRCh37和GRCh38之间进行映射，并显示在选定的转录本上。
+> https://cancer.sanger.ac.uk/cosmic/variant-updates
 
- https://cancer.sanger.ac.uk/cosmic/variant-updates
+## DOWNLOAD
++ CosmicMutantExport.tsv.gz
++ CosmicNCV.tsv.gz
++ CosmicCompleteCNA.tsv.gz
++ VCF/CosmicCodingMuts.vcf.gz 和VCF/CosmicCodingMuts.normal.vcf.gz
++ VCF/CosmicNonCodingVariants.vcf.gz和 VCF/CosmicNonCodingVariants.normal.vcf.gz
