@@ -16,3 +16,24 @@ time parallel blat chr{}.fa human/human.fa test_{}.psl ::: {1..22} X Y M
 blat database query -out=blast8 output.psl
 ```
 
+## 获取psl格式
+
+```
+1. Go to table Browser in UCSC
+2. Select RefSeq Genes track from Genes Group
+3. Select RefSeqAli Table
+4. Select Fields from primary and related tables
+5. Click Get Output
+6. Select all fields from hg19.refSeqAli EXCEPT bin
+7. Also select geneName from hg19.refFlat fields
+8. Save as Hg19.file
+9. grep -v '#' Hg19.file|perl -ane '@arr=join("\t",@F[0..20]);print "@arr\n"'|sort >Hg19.psl
+10. grep -v '#' Hg19.file|awk '{print $22"\t"$10}' |sort > ID.list
+RockChalkJayhawk is offline  	
+```
+> http://seqanswers.com/forums/showthread.php?t=5925
+
+http://genome.ucsc.edu/FAQ/FAQformat#format9.2
+
+
+
