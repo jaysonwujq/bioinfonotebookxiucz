@@ -32,19 +32,38 @@
   
 ----
 + Whole-genome sequencing analysis of copy number variation (CNV) using low-coverage and paired-end strategies is efficient and outperforms array-based CNV analysis
+  + 结论： 
   + Evaluation of copy number variation detection between high-resolution array CGH and low-coverage short-insert and mate-pair whole-genome sequencing
   +  Bo Zhou, doi: https://doi.org/10.1101/192310
   + https://trace.ncbi.nlm.nih.gov/Traces/sra/?study=SRP118709
   + https://www.ncbi.nlm.nih.gov//sra/?term=SRP118709
-  +  Furthermore, we show that WGS (at 1x coverage) is able to detect
-17 all seven GS deletion-CNVs >100 kb in NA12878 whereas only one is detected by most
-18 arrays. 
+  +  Furthermore, we show that WGS (at 1x coverage) is able to detect 17 all seven GS deletion-CNVs >100 kb in NA12878 whereas only one is detected by most 18 arrays. 
   + Lastly, we show that the much larger 15 Mbp Cri-du-chat deletion can be readily
 19 detected with short-insert paired-end WGS at even just 1x coverage.
-  + LiangD,PengY,LvW,DengL,ZhangY,LiH,YangP,ZhangJ,SongZ,XuG, Cram DS, Wu L. Copy number variation sequencing for comprehensive diagnosis of chromosome disease syndromes. J Mol Diagn 2014;16:519–26.
-Liu S, Song L, Cram DS, Xiong L, Wang K, Wu R, Liu J, Deng K, Jia B, Zhong M, Yang F. Traditional karyotyping vs copy number variation sequencing for
-detection of chromosomal abnormalities associated with spontaneous miscarriage. Ultrasound Obstet Gynecol 2015;46:472–7. DongZ,ZhangJ,HuP,ChenH,XuJ,TianQ,MengL,YeY,WangJ,ZhangM, LiY,WangH,YuS,ChenF,XieJ,JiangH,WangW,WaiChoyK,XuZ.Low- pass whole-genome sequencing in clinical cytogenetics: a validated approach. Genet Med 2016;18:940–8.
+  + LiangD,PengY,LvW,DengL,ZhangY,LiH,YangP,ZhangJ,SongZ,XuG, Cram DS, Wu L. Copy number variation sequencing for comprehensive diagnosis of chromosome disease syndromes. J Mol Diagn 2014;16:519–26.Liu S, Song L, Cram DS, Xiong L, Wang K, Wu R, Liu J, Deng K, Jia B, Zhong M, Yang F. Traditional karyotyping vs copy number variation sequencing for detection of chromosomal abnormalities associated with spontaneous miscarriage. Ultrasound Obstet Gynecol 2015;46:472–7. DongZ,ZhangJ,HuP,ChenH,XuJ,TianQ,MengL,YeY,WangJ,ZhangM, LiY,WangH,YuS,ChenF,XieJ,JiangH,WangW,WaiChoyK,XuZ.Low- pass whole-genome sequencing in clinical cytogenetics: a validated approach. Genet Med 2016;18:940–8.
+  + These challenges are mainly due to read mappability (particularly in repetitive regions), GC-content bias, read quality, and the difficulty in identifying duplications [8].  It is important to note that the problem of CNV detection in repetitive regions is not yet fully resolved for both sequencing and arrays [8, 9].  复杂区域的判断。
+  + 
+  + Generally, large CNVs called from discordant-read-pair analysis without corroboration from read-depth analysis are likely to be false positives since large CNVs are called more robustly using read-depth analysis (Figure 3d-i).  However, when a CNV is called by both types of analyses, discordant-read-pair analysis has the ability to provide a more accurate genomic boundary of the CNV.  
+  + Reference gaps, the absence of read alignment in the gaps can be mis-interpreted as deletions
+  + In addition, deletions and reference gaps that lie in close proximity are sometimes merged in read-depth analysis, particularly at low coverages. 
+  + <font color="#dd0000"> In read-depth analysis, the “bin size” parameter for CNV calling dictates the lower size limit of CNV detection and is optimal if the ratio of average read depth signal to its standard deviation is approximately 4 to 5 [11].  We calculated the optimal bin size to be 5kb for our WGS data (see Methods).  </font><br /> 
+  +  <table><tr><td bgcolor=#54FF9F>By combining read-depth and discordant-read-pair analysis, the 3kb mate-pair WGS library provides the widest size distribution of detected CNVs.</td></tr></table>
+  + 方法
+    + 获取`https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR6061294` 
+    + For discordant read-pair analysis, we ensured that the CNV events detected had multiple supporting reads as a function of sequencing coverage in order to minimize false positives, especially for duplications.  False duplication calls may arise from read-depth analysis due to poor-quality alignments and PCR duplicates, which might yield artificially higher coverage in certain regions. 
 
+
+```
+#Step1: Download SRA file
+$samdump SRR6061300.sra > SRR6061300.sam
+samtools view -S -b -h SRR6061300.sam > SRR6061300.bam
+$prefetch --output-directory $output SRR6061300
+#sam2bam
+sam-dump SRR390728 | samtools view -bS -h - > SRR390728.bam
+
+ascp -QT -l 300m -P33001 -i $HOME/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:vol1/fastq/SRR606/004/SRR6061294/SRR6061294_1.fastq.gz . && mv SRR6061294_1.fastq.gz SRR6061294_Short-insert_whole_genome_sequencing_of_NA12878_subsampled_to_1X_coverage_1.fastq.gz
+ascp -QT -l 300m -P33001 -i $HOME/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:vol1/fastq/SRR606/004/SRR6061294/SRR6061294_2.fastq.gz . && mv SRR6061294_2.fastq.gz SRR6061294_Short-insert_whole_genome_sequencing_of_NA12878_subsampled_to_1X_coverage_2.fastq.gz
+```
 ----
 Haraksingh RR, Abyzov A, Urban AE. Comprehensive performance comparison
 of high-resolution array platforms for genome-wide Copy Number Variation (CNV) analysis in humans. BMC Genomics 2017;18:321.

@@ -469,3 +469,10 @@ For a biallelic site, the PL has three numbers, The first one is the probability
 “^”标记reads起始;
 “$”标记reads segment结尾;
 ```
+
+https://www.jianshu.com/p/8324e390416f
+
+
+## 怎么获取unique mapping read
+
+http://www.biotrainee.com/thread-1115-1-1.html

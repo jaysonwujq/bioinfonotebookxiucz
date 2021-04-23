@@ -9,3 +9,6 @@ CIEND give the down/up stream positions of the intervals and CIPOS95 and
 CIEND95 give the 95% confidence interval.
 
 IMPRECISE tags SVs with breakpoints that are not resolved to a single base pair.  Check out the lumpy paper for a description of how these breakpoints are defined.
+
+
+https://github.com/jaquol/blog-like-old/blob/master/02-summary-statistics-structural-variants-lumpy.ipynb

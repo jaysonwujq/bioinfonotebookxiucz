@@ -84,3 +84,67 @@ q 显示每个窗格是第几个，当数字出现的时候按数字几就选中
 } 与下一个窗格交换位置
 z 切换窗格最大化/最小化
 ```
+
+## 配置
+```
+set -g prefix C-b
+set-option -g prefix2 ` # 设置一个不常用的`键作为指令前缀，按键更快些
+
+#set -g mouse off
+set -g base-index 1 ## 设置窗口的起始下标为1
+set -g renumber-windows on
+set -g pane-base-index    1 # 设置面板的起始下标为1
+#set-window-option -g monitor-activity on
+#set-window-option -g bell-action any
+
+setw -g automatic-rename off
+setw -g allow-rename off
+
+
+
+
+
+
+run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux
+run-shell ~/.tmux/plugins/tmux-continuum/continuum.tmux
+set -g @continuum-save-interval '600'
+
+
+
+
+##
+# git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm , use prefix + I install plugins
+# List of plugins
+#set -g @plugin 'tmux-plugins/tpm'
+#set -g @plugin 'tmux-plugins/tmux-sensible'
+
+# plugins
+# prefix + Ctrl-s - save;  prefix + Ctrl-r - restore.  https://github.com/tmux-plugins/tmux-resurrect
+#set -g @plugin 'tmux-plugins/tmux-resurrect'
+#set -g @plugin 'tmux-plugins/tmux-continuum'
+# restore vim/neovim session
+set -g @resurrect-strategy-vim 'session'
+set -g @resurrect-strategy-nvim 'session'
+set -g @continuum-restore 'on'
+set -g @resurrect-capture-pane-contents 'on'
+
+set -g @resurrect-save-shell-history 'on'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+#run '~/.tmux/plugins/tpm/tpm'
+```
+
+## 
+### tmp安装
+但是使用过程中有一个问题，就是一旦机器重启或者 tmux 不幸挂掉了，之前的工作区会话就会全部丢失了。有一种快速启动 tmux 会话的方式就是用 tmuxp 启动一个 yaml 配置，不过笔者最近用的也非常少了。这次介绍两个 tmux 的插件，使用它们可以很方便 地自动保存和恢复 tmux 会话，即使你重启机器也不用怕了，打开的各种目录可以很快恢复了，甚至你之前的命令输出/vim会话也可以恢复。
+https://zhuanlan.zhihu.com/p/259640277
+
+### 手动安装
+
+
+## 进阶操作
+加载conf文件
+```
+[zhangbo@mu01 bin]$ tmux source-file ~/.tmux.conf
+'~/.tmux/plugins/tpm/tpm' returned 1
+```
