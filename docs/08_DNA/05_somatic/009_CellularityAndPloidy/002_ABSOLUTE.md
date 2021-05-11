@@ -49,3 +49,11 @@ The spacing between values $α/D$ corresponds to the concentration ratio of alle
 ## output
 
 https://www.genepattern.org/analyzing-absolute-data
+
+
+The ABSOLUTE algorithm uses segmented copy number data, precomputed models of recurrent cancer karyotypes and optionally allelic fractions of somatic point mutations as input. The output of ABSOLUTE provides inferred information on the absolute cellular copy number of local DNA segments, and for point mutations the number of mutated alleles. Note: Segmented copy number data should be obtained from SNP copy number arrays in addition to the somatic variants.
+
+The AbsCN-seq algorithm uses segmented genomic intervals and their accompanying observed read depths, for matched germline and tumor samples, to infer tumor purity and ploidy. The input data can be obtained from the bam files used as input for somatic variant detection. In the original AbsCN-seq publication the authors used exome-seq data. The AbsCN-seq algorithm is available as an R package and can be downloaded here.
+
+ 
+

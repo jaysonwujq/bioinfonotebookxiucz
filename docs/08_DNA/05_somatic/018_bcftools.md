@@ -1,3 +1,12 @@
+<!-- TOC -->
+
+- [过滤](#过滤)
+  - [bcftools filter](#bcftools-filter)
+- [注释](#注释)
+- [安装报错](#安装报错)
+  - [解决zlib.h:no such file or directory](#解决zlibhno-such-file-or-directory)
+
+<!-- /TOC -->
 + Does “multiallelic” denote “more than 2 alleles” rather than “not monomorphic”?
 
 Yes. 2 or more alternate alleles at a site.
@@ -35,3 +44,22 @@ export BCFTOOLS_PLUGINS=/local_data1/MED/programs/zhangbo/bcftools/bcftools-1.9/
 bcftools +fill-tags my.vcf > out.vcf
 ```
 
+
+## 安装报错
+```
+http://samtools.github.io/bcftools/howtos/install.html
+
+git clone --recurse-submodules git://github.com/samtools/htslib.git
+git clone git://github.com/samtools/bcftools.git
+cd bcftools
+ # The following is optional:
+ #   autoheader && autoconf && ./configure --enable-libgsl --enable-perl-filters
+make
+
+https://raw.githubusercontent.com/samtools/bcftools/develop/INSTALL
+```
+
+### 解决zlib.h:no such file or directory
+```
+在~/.bashrc中屏蔽了conda的字段后，注销重新登陆，重新编译就pass了。
+```

@@ -1,6 +1,15 @@
-+ Copy-Number Variants Detection by Low-Pass Whole-Genome Sequencing
+<!-- TOC -->
+
+- [Copy-Number Variants Detection by Low-Pass Whole-Genome Sequencing](#copy-number-variants-detection-by-low-pass-whole-genome-sequencing)
+- [A Robust Approach for Blind Detection of Balanced Chromosomal Rearrangements with Whole-Genome Low-Coverage Sequencing](#a-robust-approach-for-blind-detection-of-balanced-chromosomal-rearrangements-with-whole-genome-low-coverage-sequencing)
+- [Copy Number Variation Sequencing for Comprehensive Diagnosis of Chromosome Disease Syndromes](#copy-number-variation-sequencing-for-comprehensive-diagnosis-of-chromosome-disease-syndromes)
+
+<!-- /TOC -->
+
+# Copy-Number Variants Detection by Low-Pass Whole-Genome Sequencing
   + DOI: 10.1002/cphg.43
-+ A Robust Approach for Blind Detection of Balanced Chromosomal Rearrangements with Whole-Genome Low-Coverage Sequencing
+----
+# A Robust Approach for Blind Detection of Balanced Chromosomal Rearrangements with Whole-Genome Low-Coverage Sequencing
   + DOI: 10.1002/cphg.51
 + WisecondorX: improved copy number detection for routine shallow whole-genome sequencing
   + 旧版本：https://github.com/VUmcCGP/wisecondor
@@ -70,3 +79,31 @@ of high-resolution array platforms for genome-wide Copy Number Variation (CNV) a
 
 ----
 + ichorNCA
+https://gavinhalab.org/projects/ichorCNA/
+
+---
+
+Detection of a patient with ring chromosome 15 by low-coverage massively parallel copy number variation sequencing（10.3760/cma.j.issn.1003-9406.2017.03.021
+）
++ http://www.doc88.com/p-9778631399999.html
++ CNV一seq检测染色体拷贝数变异将基因组 DNA进行片段化处理，构建测序文库，使用博奥生物的BES 4佣0测序仪进行高通量全基因组测序，测序深度0 · 1倍，其检测CNV分辨率约为0 · 1 Mbo测序所得的Reads通过BWA软件与hg19基因组进行比对分析，仅保留唯一定位的Reads。将基因组划分为若干个连续的20 kb区域，统计每个区域内Reads个数，并通过局部多项式回归拟合算法校正GC含量引起的测序偏好。统计1 Mb区域的校正后的Reads个数，并与正常参考数据库进行比较，计算该区域的z值。为了提高检测灵敏度，将相邻7个区域的z值合并计算得到Stouffer，s Z值。根据Stouffer's Z值来判读待测样本的微缺失或微重复区域，Stouffer，s Z值> 3 时，判断为染色体拷贝数重复（3个拷贝）；Stouffer's z值<一3时，判断为染色体拷贝数缺失（1个拷贝）。
+
+
+----
+# Copy Number Variation Sequencing for Comprehensive Diagnosis of Chromosome Disease Syndromes
+
+https://www.sciencedirect.com/science/article/pii/S1525157814001020
+
+
+We previously showed that a low-coverage shotgun sequencing method of approximately five million mapped sequencing reads allocated to sequential 20-kb sequencing bins across each chromosome can detect levels of mosaicism of the X chromosome down to 5%.30 We, therefore, hypothesized that this method could be equally applied to detect CNV at a relatively high resolution across the 22 autosomal chromosome pairs plus the sex chromosomes X and Y. Herein, we applied CNV sequencing (CNV-seq) to blinded DNA samples with known abnormalities defined by a medium-density SNP array and showed that this method was highly concordant, reproducible, and sensitive, with a potential resolution of approximately 0.1 Mb.
+
+Libraries were sequenced using the HiSeq 2000 platform (Illumina Inc.) to generate approximately 8 million 36-bp single-end reads, representing **0.1-fold genome coverage**. 
+
+----
+# Maternal Mosaicism Is a Significant Contributor to Discordant Sex Chromosomal Aneuploidies Associated with Noninvasive Prenatal Testing 
++ https://academic.oup.com/clinchem/article/60/1/251/5581449
++ The accuracy of NIPT for ChrX and ChrY can be improved substantially by integrating the results of maternal-plasma sequencing with those for maternal-WBC sequencing. 
++ NONINVASIVE PRENATAL TESTING
+  + **Chromosome z score values less than −3.0 or greater than +3.0 were classified as abnormal** (Song Y, Liu C, Qi H, Zhang Y, Bian X, Liu J. Noninvasive prenatal testing of fetal aneuploidies by massively parallel sequencing in a prospective Chinese population. Prenat Diagn 2013;33:700–6.).
++ DETERMINATION OF ALTERED MATERNAL KARYOTYPES BY WBC GENOMIC DNA SEQUENCING
+  + 

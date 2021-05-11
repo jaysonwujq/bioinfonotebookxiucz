@@ -1,12 +1,35 @@
+<!-- TOC -->
+
+- [pre](#pre)
+- [Call](#call)
+  - [](#)
+  - [Active Regions](#active-regions)
+- [PON](#pon)
+- [MuTect2 filters](#mutect2-filters)
+  - [](#-1)
+  - [FILTER and FORMAT](#filter-and-format)
+    - [mutect2的AF（AF calculation in Mutect2）](#mutect2的afaf-calculation-in-mutect2)
+  - [Contamination 样本间污染评估](#contamination-样本间污染评估)
+    - [ContEst（gatk3）](#contestgatk3)
+    - [](#-2)
+      - [getpileupsummaries](#getpileupsummaries)
+
+<!-- /TOC -->
+
+
 # pre
 ![](./pics/202101115.png)
 ![](./pics/202101113.png)
 ![](./pics/202101114.png)
+
 # Call
 The thresholds used by MuTect2 to consider a variant as being **real and somatic** (leading to the annotation “PASS”)：
 + are by default TLOD > 6.3 and NLOD > 2.2. 
 + For dbSNP variants, a higher NLOD threshold of 5.5 is used
 + For dbSNP and COSMIC database variants, NLOD > 2.2.  
+
+## 
+与HaplotypeCaller一样，Mutect2通过在active region中对单倍型（决定同一性状的紧密连锁的基因构成的基因型）进行局部重新组装来判断SNV和InDel。 也就是说，当Mutect2遇到显示体细胞变异迹象的active region时，它会丢弃现有的映射信息，并完全重新组装该区域中的reads，以生成候选变异单倍型。 像HaplotypeCaller一样，Mutect2然后通过Pair-HMM算法将每个reads与每个单倍型对齐，以获得似然矩阵。 最后，它应用贝叶斯体细胞似然模型来获得体细胞变异与测序错误的对数比。
 
 ## Active Regions
 + Modified	sta*s*c	threshold	for	soma*c	scenario	uses	LOD	≥	4.0	in	favor	of	
@@ -19,7 +42,7 @@ overlapping	reads
 + Then, variants identified by MuTect2 in at least two normal samples were compiled together into one PoN VCF file.
 
 # MuTect2 filters
-
+## 
 
 ##  FILTER and FORMAT
 Filter | Threshold | Key | Explanation | Version
@@ -34,11 +57,12 @@ fragment length | max-median-fragment-length-difference | - | difference of alt 
 read position | min-median-read-position |  | median distance of alt mutations from end of read  |
 panel of normals | panel-of-normals |  | presence in panel of normals | 
 
+
 ---
 > base_quality
-+ base_quality标签出现在了filter列，它在call的时候估算的参数为MBQ=0，而我们设置的min-median-base-quality参数为20，因为0<20,所以base_quality的标签出现在了tag里边。
++ base_quality(alt的碱基质量值的中位数)标签出现在了filter列，它在call的时候估算的参数为MBQ=0，而我们设置的min-median-base-quality参数为20，因为0<20,所以base_quality的标签出现在了tag里边。
 > clustered_events
-+ 活动区域发生多次突变，且突变位点距离在3bp及以上。
++ 活动区域发生多次突变，且突变位点距离在3bp及以上。(为什么大于3bp呢？因为2个的话很有可能是可以合并的同一个。)
 + max-events-in-region is the maximum allowable number of called variants co-occurring in a single assembly region. If the number of called variants exceeds this they will all be filtered.
 + Variants coming from an assembly region with more than this many events are filtered.
 > germline_risk
@@ -48,20 +72,29 @@ panel of normals | panel-of-normals |  | presence in panel of normals |
 > artifact_in_normal
 + 当tumor和control成对call的时候，会对control组的normal样本单独设置对数比阈值，该阈值越高，过滤标准越严格，因为认为normal全部是假阳性，所以会设置较低的LOD值。
 + normal-artifact-lod is the maximum acceptable likelihood of an allele in the normal by the somatic likelihoods model. This is different from the normal likelihood that goes into the germline model, which makes a diploid assumption. Here we compute the normal likelihood as if it were a tumor in order to detect artifacts.
+> strict_strand
++ 表示alt等位基因在两个方向均为显示（Evidence for alt allele is not represented in both directions）
 > strand_artifact
++ 链偏移，表示仅来自于一条read方向的alt等位基因（Evidence for alt allele comes from one read direction only）
 + max-strand-artifact-probability is the posterior probability of a strand artifact, as determined by the model described above, required to apply the strand artifact filter.
 + 链偏好性的后验概率，根据计算的SA_POST_PROB，大于设定值则过滤；还有第二层补充条件；
 + This is necessary but not sufficient – we also require the estimated max a posteriori allele fraction to be less than min-strand-artifact-allele-fraction.The second condition prevents filtering real variants that also have significant strand bias, i.e. a true variant that also has some artifactual reads.
 + 如果链偏好性的最大后验概率比SA_MAP_AF（MAP estimates of allele fraction given
 变异频率的最大后验概率）值小，会保留，以防将真阳性位点加上strand_artifact标签。
 + Filter a variant if the probability of strand artifact exceeds this number
+```
+Generally, we find the likelihood of strand bias is 1/10,000. And for example in your first PASS variant example with SB=8,17,5,0: 5,0 or 0,5 has a 1/16 likelihood of occurring, which is much more probable than the 1/10,000.
+```
 > mapping_quality
 > fragment_length
 + tumor-normal成对call才会出现的
 > read_position
 + 位点到read末尾的最近读取端的最小中值长度。DENELS的位置是由读数末尾最远的一端测量的。
+> weak_evidence：表示突变为达到阈值（Mutation does not meet likelihood threshold）
+> t_lod
++ tumor-lod is the minimum likelihood of an allele as determined by the somatic likelihoods model required to pass.似然模型中认为该点是体细胞变异的最小似然比，默认是5.3,若小于5.3则添加tlod标签。
 
-https://www.jianshu.com/p/31ad61aa9d78
+
 
 ###
 ### mutect2的AF（AF calculation in Mutect2）
@@ -75,10 +108,10 @@ https://gatk.broadinstitute.org/hc/en-us/community/posts/360057830232-Wrong-Calc
 
 https://github.com/broadinstitute/gatk/issues/6067
 
-## Contamination
+## Contamination 样本间污染评估
 This tool borrows from ContEst by Cibulskis et al the idea of estimating contamination from ref reads at hom alt sites. However, ContEst uses a probabilistic model that assumes a diploid genotype with no copy number variation and independent contaminating reads. That is, ContEst assumes that each contaminating read is drawn randomly and independently from a different human. This tool uses a simpler estimate of contamination that relaxes these assumptions. In particular, it works in the presence of copy number variations and with an arbitrary number of contaminating samples. In addition, this tool is designed to work well with no matched normal data. However, one can run GetPileupSummaries on a matched normal bam file and input the result to this tool.
 
-### ContEst
+### ContEst（gatk3） 
 + Low	levels	of	cross-sample	contamina*on	is	common	
 + Contaminant	sites	vary	from	patient	homozygous	sites	
 ![](./pics/20210111.png)
@@ -99,6 +132,15 @@ Here we can see that ContEst found that the file was approximately 8.2 percent c
 ```
 结论：
 ContEst produces accurate estimates even with average coverage <5×.
+
+### 
++ 对肿瘤BAM运行GetPileupSummaries以总结tumor样本在已知变异位点集上的reads支持情况。
++ 如果存在配对样本，会对正常样本运行GetPileupSummaries以总结tumor样本在已知变异位点集上的reads支持情况。
++ 对已知变异位点集采用CalculateContamination来估计污染比例，segments.table文件的最后一列用来判断突变位点是否为样本污的位点。
+
+需要指出几点：在默认参数中，此工具只考虑样本中纯和备用位点：等位基因频率范围在0.01-0.2（相关参数是--minimum-population-allele-frequency和--maximum-population-allele-frequency）,这样设计的理论基础是：如果某个纯和备用位点的人群频率较低，当发生样本交叉污染时，我们更容易观测到ref allele（或更常见allele）的出现，这样我们可以更准确地定量污染比例。
+
+
 #### getpileupsummaries
 ```
 #<METADATA>SAMPLE=AG945-2
