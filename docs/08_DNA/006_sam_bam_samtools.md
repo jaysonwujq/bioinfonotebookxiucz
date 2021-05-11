@@ -491,3 +491,4 @@ samtools view -bhS -q 30 input.sam > output.bam
 https://support.bioconductor.org/p/98786/#99082
 https://gist.github.com/crazyhottommy/ed73c7e2daee8383dccb35f224f99714
 https://gist.github.com/sbamin/27acf13f2a28161efbf89a273559bca4
+
