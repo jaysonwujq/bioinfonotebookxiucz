@@ -150,3 +150,8 @@ chr1	17385	8	0	0	0.122
 chr1	69761	0	0	0	0.113
 ```
 #This produces a six-column table as shown. The `alt_count` is the count of reads that support the ALT allele in the germline resource. The `allele_frequency` corresponds to that given in the germline resource. Counts for `other_alt_count` refer to reads that support all other alleles.
+
+----
+## Mutect2 bamout reports fewer reads than VCF AD
+#### Ref_Info
+https://gatk.broadinstitute.org/hc/en-us/community/posts/360060670091--GATK-v4-1-6-0-Mutect2-bamout-reports-fewer-reads-than-VCF-AD

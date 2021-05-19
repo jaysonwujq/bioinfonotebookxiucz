@@ -104,6 +104,47 @@ Libraries were sequenced using the HiSeq 2000 platform (Illumina Inc.) to genera
 + https://academic.oup.com/clinchem/article/60/1/251/5581449
 + The accuracy of NIPT for ChrX and ChrY can be improved substantially by integrating the results of maternal-plasma sequencing with those for maternal-WBC sequencing. 
 + NONINVASIVE PRENATAL TESTING
-  + **Chromosome z score values less than −3.0 or greater than +3.0 were classified as abnormal** (Song Y, Liu C, Qi H, Zhang Y, Bian X, Liu J. Noninvasive prenatal testing of fetal aneuploidies by massively parallel sequencing in a prospective Chinese population. Prenat Diagn 2013;33:700–6.).
+  + We constructed plasma DNA libraries and performed massively parallel sequencing on the Illumina HiSeq 2000 platform, as previously described (15, 27). We generated approximately 8 × 106 single-end reads of 36 bp from each library and aligned them to the unmasked human genome sequence (28). We counted uniquely mapped reads and then calculated z scores for each chromosome after GC normalization for Chr13, Chr18, Chr21, and ChrX (27). **Chromosome z score values less than −3.0 or greater than +3.0 were classified as abnormal** (Song Y, Liu C, Qi H, Zhang Y, Bian X, Liu J. Noninvasive prenatal testing of fetal aneuploidies by massively parallel sequencing in a prospective Chinese population. Prenat Diagn 2013;33:700–6.).
 + DETERMINATION OF ALTERED MATERNAL KARYOTYPES BY WBC GENOMIC DNA SEQUENCING
-  + 
+
+
+----
+普通方式计算CNV
+```
+探针长度
+
+chrom  start  end    length 
+
+chr1    12080  12251  172
+
+chr1    12595  12802  208
+
+normalized_coverage : for each target interval, the read depth (unique read starts) that correspond to a particular target interval is divided by the average number of read starts in all of the target intervals.
+
+normal
+
+chrom  start  end    length  normalized_coverage    gene
+
+chr1    12080  12251  172        0                    DDX11L1
+
+chr1    12595  12802  208        0.002957            DDX11L1
+
+tumor
+
+chrom  start  end    length  normalized_coverage  gene
+
+chr1    12080  12251  172        0                  DDX11L1
+
+chr1    12595  12802  208        0.011583            DDX11L1
+
+算法
+
+例如gene EGFR
+
+片段长度：length = L1 L2 L3 L4 L5
+
+归一化覆盖:Tn = Tn1 Tn2 Tn3 Tn4 Tn5 Nn = Nn1 Nn2 Nn3 Nn4 Nn5
+
+计算 : ((Tn1/Nn1)xL1+(Tn2/Nn2)xL2+·····)/L1+···L5 =拷贝率
+
+```
