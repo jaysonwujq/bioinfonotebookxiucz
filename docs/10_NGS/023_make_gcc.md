@@ -1,16 +1,19 @@
 <!-- TOC -->
 
+- [g++ 和 gcc](#g-和-gcc)
 - [编译](#编译)
-    - [gcc编译器](#gcc编译器)
-    - [make](#make)
-    - [automake](#automake)
-    - [CMake](#cmake)
-        - [基本语法](#基本语法)
-        - [构建](#构建)
-            - [Ref_Info](#ref_info)
-    - [glibc 安装问题](#glibc-安装问题)
+  - [gcc编译器](#gcc编译器)
+  - [make](#make)
+  - [automake](#automake)
+  - [CMake](#cmake)
+    - [基本语法](#基本语法)
+    - [构建](#构建)
+      - [Ref_Info](#ref_info)
+  - [glibc 安装问题](#glibc-安装问题)
 
 <!-- /TOC -->
+# g++ 和 gcc
+gcc和g++的区别主要是在对cpp文件的编译和链接过程中，因为cpp和c文件中库文件的命名方式不同，那为什么g++既可以编译C又可以编译C++呢，这时因为g++在内部做了处理，默认编译C++程序，但如果遇到C程序，它会直接调用gcc去编译.
 
 # 编译
 + 构建套件

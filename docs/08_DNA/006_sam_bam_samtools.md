@@ -493,3 +493,9 @@ https://gist.github.com/crazyhottommy/ed73c7e2daee8383dccb35f224f99714
 https://gist.github.com/sbamin/27acf13f2a28161efbf89a273559bca4
 
 xxxx
+
+----
+##【已解决】samtools报错error while loading shared libraries: libcrypto.so.1.0.0
+https://www.jianshu.com/p/093522c89aef
+
+https://www.cnblogs.com/jessepeng/p/14766638.html

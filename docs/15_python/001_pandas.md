@@ -1,4 +1,32 @@
-[TOC]
+<!-- TOC -->
+
+- [2. 行列选择](#2-行列选择)
+    - [2.1 行选择](#21-行选择)
+        - [2.1.1 根据包含的字符串选择行](#211-根据包含的字符串选择行)
+        - [2.1.2 选择包含空格的行](#212-选择包含空格的行)
+    - [2.2. 列选择](#22-列选择)
+        - [2.2.1. 根据列值选择行](#221-根据列值选择行)
+        - [2.2.2. 选择列值不等于some_value的行](#222-选择列值不等于some_value的行)
+        - [2.2.3. 列名里是否包含字符串](#223-列名里是否包含字符串)
+- [3 常见操作](#3-常见操作)
+    - [3.1 去重复](#31-去重复)
+    - [3.2 从python 中的列名称检索列索引](#32-从python-中的列名称检索列索引)
+        - [3.2.1. get_loc()](#321-get_loc)
+        - [3.2.2. searchsorted()](#322-searchsorted)
+    - [3.3 检索某字母开头的行](#33-检索某字母开头的行)
+    - [3.4 读写](#34-读写)
+        - [DataFrame.to_excel多次写入不同Sheet](#dataframeto_excel多次写入不同sheet)
+- [4. Pandas中的map(), apply()和applymap()的应用](#4-pandas中的map-apply和applymap的应用)
+    - [Remap values in  column with a dict](#remap-values-in--column-with-a-dict)
+            - [Ref_Info](#ref_info)
+    - [Get top biggest values from each column of the .DataFrame](#get-top-biggest-values-from-each-column-of-the-dataframe)
+    - [merge multiple dfs](#merge-multiple-dfs)
+        - [](#)
+    - [Collapse two rows into 1 in Pandas](#collapse-two-rows-into-1-in-pandas)
+    - [把某列百分数转成浮点数](#把某列百分数转成浮点数)
+    - [列字符型变成列浮点型](#列字符型变成列浮点型)
+
+<!-- /TOC -->
 
 # 2. 行列选择
 ## 2.1 行选择
@@ -138,17 +166,30 @@ https://stackoverflow.com/questions/17071871/select-rows-from-a-dataframe-based-
 ```
 df.to_csv(r'Z:\temp\test.csv',quoting=1,mode='w',index=False,header=True,encoding= 'utf-8',columns=['TABNAME','TIME'])
 ```
-### DataFrame.to_excel多次写入不同Sheet
+## 3.5 DataFrame.to_excel多次写入不同Sheet
 ```
 >>> writer = pd.ExcelWriter('output.xlsx')
 >>> df1.to_excel(writer,'Sheet1')
 >>> df2.to_excel(writer,'Sheet2')
 >>> writer.save()
 ```
+## 3.6 列计算
+```
+df.loc['total'] = df[['data1','data2']].apply(lambda x : x.sum(),axis=0 )
+```
 
 
+# 4. Pandas中的map(), apply()和applymap()的应用
+map() 是一个Series的函数，DataFrame结构中没有map()。map()将一个自定义函数应用于Series结构中的每个元素(elements)。
 
-# 4. apply & map
+apply()将一个函数作用于DataFrame中的每个行或者列
+
+applymap()将函数做用于DataFrame中的所有元素(elements)
+
+> #axis =1 ,apply function to each row. 
+
+> #axis =0,apply function to each column,default 0
+
 
 https://stackoverflow.com/questions/40083266/replace-comma-with-dot-
 
@@ -260,4 +301,12 @@ pd.set_option('max_colwidth',100)
 print df.groupby('value')['tempx'].apply(' '.join).reset_index()
 
 >>> df1.groupby(["#Query_id"])['Query_start'].agg(list).reset_index()
+```
+
+## 把某列百分数转成浮点数
+https://stackoverflow.com/questions/25669588/convert-percent-string-to-float-in-pandas-read-csv
+
+## 列字符型变成列浮点型
+```
+df["A"] = pd.to_numeric(df["A"], downcast="float")
 ```
