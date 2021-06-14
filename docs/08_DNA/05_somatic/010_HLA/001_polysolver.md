@@ -14,3 +14,12 @@ POLYSOLVER-based mutation detection consists of the following steps:
 (ii) Re-alignment of the HLA reads in both tumor and normal samples to the inferred HLA-alleles while filtering out likely erroneous alignments
 (iii) Application of standard tools to detect somatic mutations (MuTect and Strelka) by comparing the re-aligned tumor and normal HLA reads
 (iv). Annotation of the detected mutations with gene compartment and amino acid change information
+
+## POLYSOLVER
+https://software.broadinstitute.org/cancer/cga/polysolver
+
+https://github.com/jason-weirather/-polysolver
+
+https://github.com/researchapps/polysolver
+
+https://zhuanlan.zhihu.com/p/62944810

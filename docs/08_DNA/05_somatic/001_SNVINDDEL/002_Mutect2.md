@@ -38,7 +38,11 @@ the	reference	model
   + Tumor	is	strict:	MAPQ	≥	Q20;	discard	discrepant	overlapping	reads	
   + Normal	is	permissive:	MAPQ	≥	Q0;	keep	alternate	read	from	discrepant	
 overlapping	reads	
+
+> 怎么执行：https://gatk.broadinstitute.org/hc/en-us/community/posts/360065192491-mutect2-realignment
+
 # PON
+
 + Then, variants identified by MuTect2 in at least two normal samples were compiled together into one PoN VCF file.
 
 # MuTect2 filters
@@ -90,7 +94,7 @@ Generally, we find the likelihood of strand bias is 1/10,000. And for example in
 + tumor-normal成对call才会出现的
 > read_position
 + 位点到read末尾的最近读取端的最小中值长度。DENELS的位置是由读数末尾最远的一端测量的。
-> weak_evidence：表示突变为达到阈值（Mutation does not meet likelihood threshold）
+> weak_evidence：表示突变为达到阈值（Mutation does not meet likelihood threshold），低于 -emit-lod 阈值
 > t_lod
 + tumor-lod is the minimum likelihood of an allele as determined by the somatic likelihoods model required to pass.似然模型中认为该点是体细胞变异的最小似然比，默认是5.3,若小于5.3则添加tlod标签。
 

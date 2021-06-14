@@ -2,7 +2,10 @@
 
 - [Copy-Number Variants Detection by Low-Pass Whole-Genome Sequencing](#copy-number-variants-detection-by-low-pass-whole-genome-sequencing)
 - [A Robust Approach for Blind Detection of Balanced Chromosomal Rearrangements with Whole-Genome Low-Coverage Sequencing](#a-robust-approach-for-blind-detection-of-balanced-chromosomal-rearrangements-with-whole-genome-low-coverage-sequencing)
+- [Haraksingh RR, Abyzov A, Urban AE. Comprehensive performance comparison of high-resolution array platforms for genome-wide Copy Number Variation (CNV) analysis in humans. BMC Genomics 2017;18:321.](#haraksingh-rr-abyzov-a-urban-ae-comprehensive-performance-comparison-of-high-resolution-array-platforms-for-genome-wide-copy-number-variation-cnv-analysis-in-humans-bmc-genomics-201718321)
 - [Copy Number Variation Sequencing for Comprehensive Diagnosis of Chromosome Disease Syndromes](#copy-number-variation-sequencing-for-comprehensive-diagnosis-of-chromosome-disease-syndromes)
+- [Maternal Mosaicism Is a Significant Contributor to Discordant Sex Chromosomal Aneuploidies Associated with Noninvasive Prenatal Testing](#maternal-mosaicism-is-a-significant-contributor-to-discordant-sex-chromosomal-aneuploidies-associated-with-noninvasive-prenatal-testing)
+- [Discovery and Statistical Genotyping of Copy-Number Variation from Whole-Exome Sequencing Depth](#discovery-and-statistical-genotyping-of-copy-number-variation-from-whole-exome-sequencing-depth)
 
 <!-- /TOC -->
 
@@ -40,7 +43,7 @@
   + overlap of more than 50% 
   
 ----
-+ Whole-genome sequencing analysis of copy number variation (CNV) using low-coverage and paired-end strategies is efficient and outperforms array-based CNV analysis
++ # Whole-genome sequencing analysis of copy number variation (CNV) using low-coverage and paired-end strategies is efficient and outperforms array-based CNV analysis
   + 结论： 
   + Evaluation of copy number variation detection between high-resolution array CGH and low-coverage short-insert and mate-pair whole-genome sequencing
   +  Bo Zhou, doi: https://doi.org/10.1101/192310
@@ -72,10 +75,18 @@ sam-dump SRR390728 | samtools view -bS -h - > SRR390728.bam
 
 ascp -QT -l 300m -P33001 -i $HOME/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:vol1/fastq/SRR606/004/SRR6061294/SRR6061294_1.fastq.gz . && mv SRR6061294_1.fastq.gz SRR6061294_Short-insert_whole_genome_sequencing_of_NA12878_subsampled_to_1X_coverage_1.fastq.gz
 ascp -QT -l 300m -P33001 -i $HOME/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:vol1/fastq/SRR606/004/SRR6061294/SRR6061294_2.fastq.gz . && mv SRR6061294_2.fastq.gz SRR6061294_Short-insert_whole_genome_sequencing_of_NA12878_subsampled_to_1X_coverage_2.fastq.gz
+
+table1:Seven deletions are larger than 100 kb
+
+-2 split的结果
+-3 
+-4 readdepth的结果
+-10  整体比较
+-14：Supplementary Table S5 Percent overlap between Gold Standard deletions > 100kb and those called by WGS								
+
 ```
 ----
-Haraksingh RR, Abyzov A, Urban AE. Comprehensive performance comparison
-of high-resolution array platforms for genome-wide Copy Number Variation (CNV) analysis in humans. BMC Genomics 2017;18:321.
+# Haraksingh RR, Abyzov A, Urban AE. Comprehensive performance comparison of high-resolution array platforms for genome-wide Copy Number Variation (CNV) analysis in humans. BMC Genomics 2017;18:321.
 
 ----
 + ichorNCA
@@ -108,6 +119,28 @@ Libraries were sequenced using the HiSeq 2000 platform (Illumina Inc.) to genera
 + DETERMINATION OF ALTERED MATERNAL KARYOTYPES BY WBC GENOMIC DNA SEQUENCING
   + and 10.08% fetal DNA concentration at bin of 750 kb for detecting subchromosomal microdeletion of 3.16 Mb.
   + For each sample, we used 50 ng of WBC genomic DNA with Nextera DNA Sample Preparation Kits (Epicentre/Illumina) to construct the sequencing library. Multiple libraries were indexed and pooled into a single lane. Library fragments were sequenced to 43 bp (with 7 bp being the index sequence) on a HiSeq 2000 instrument. Sequencing reads were analyzed according to the data analysis pipeline summarized in Fig. 1. First, sequencing reads were aligned to the unmasked human genome sequence (hg19). Second, we calculated the read density by dividing each chromosome into contiguous 20-kb bins. For each bin, i, of a given sample, the reads that were uniquely and perfectly mapped to that bin (RNBi) were counted and normalized to the total read number for the sample and the total possible unique 36-bp fragment numbers within bin i (Ui), according to the following equation: NRNBi = RNBi × (8 × 106)/(total read number of the sample × Ui), where NRNBi is the normalized read number uniquely and perfectly mapped to bin i. For any given bin i of the reference samples, we calculated the median (μi) of NRNBi. We assumed that changes in abnormal copy numbers among test samples are rare for each bin; therefore, the median of NRNBi represents the normal copy number. For any bin i of a test sample, we calculated the ratio (ratioi) between the test sample and the normal chromosome copies according to the following equation: ratioi = NRNBi/μi. We then plotted log2(ratioi) values for all of the bins for a given sample to generate the copy number values along the length of each chromosome. The gain or loss of chromosome regions was detected via the fused lasso algorithm, as described previously (29). Lastly, to determine the level of chromosome mosaicism, we calculated the normalized chromosome representations (NCRj) for each chromosome of any given test sample, j, and the reference samples (NCRf) with the method described previously (27). The percentage of chromosomal mosaicism was then calculated according to the following equation: (NCRj − NCRf)/NCRf.
+
+----
+# Discovery and Statistical Genotyping of Copy-Number Variation from Whole-Exome Sequencing Depth
++ 
++ https://ars.els-cdn.com/content/image/1-s2.0-S000292971200417X-mmc1.pdf
+
+----
+# Strategies to minimize false positives and interpret novel microdeletions based on maternal copy-number variants in 87,000 noninvasive prenatal screens
+
+----
+# CovCopCan: An efficient tool to detect Copy Number Variation from amplicon sequencing data in inherited diseases and cancer
++ https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007503
++ $$z-score_{p-i} = \frac{NRC_{p_i} - \mu_p} {\sigma_p}$$
+```
+normalized read count value (NRC)
+NRCp_i is the normalized read count of the amplicon i in the patient p,
+μp the NRC average of the patient p, 
+and σ corresponds to the standard deviation of the patient p. 
+The z-score follows a standard normal distribution N(0;1).
+```
+We fixed a threshold corresponding to a significance level of 0.01 for both deletion and duplication events by a one-tailed test. Thus, a negative z-score with a p-value < 0.01 indicates a deleted amplicon, whereas a positive z-score with a p-value < 0.01 indicates a duplicated amplicon. 
+
 ----
 普通方式计算CNV
 ```
@@ -148,3 +181,9 @@ chr1    12595  12802  208        0.011583            DDX11L1
 计算 : ((Tn1/Nn1)xL1+(Tn2/Nn2)xL2+·····)/L1+···L5 =拷贝率
 
 ```
+----
+# CNVcaller: highly efficient and widely applicable software for detecting copy number variations in large populations 
+![](./pics/20210603.png)
+CNVcaller algorithm flowchart (left) and the key algorithms of each step (right). (1) Individual RD processing. In the absolute copy number correction, the RDs of highly similar windows were added together to deduce the absolute copy number. (2) Multicriteria CNVR selection. The curves show the copy numbers in a specific region for multiple samples. The blue transverse boxes mark the windows with a significant distinguishing copy number from the average (individual criterion). The green vertical boxes indicate that these regions meet the frequency conditions, and the red frame indicates that the RDs between the 2 adjacent windows are significantly correlated (population criteria). The fourth bar from the left, satisfying all the above conditions, is selected as the CNVR. (3) Genotyping: The copy numbers in each CNVR are clustered by a Gaussian Mixture Model to distinguish the normal, heterozygous, and homozygous samples.
+
+
