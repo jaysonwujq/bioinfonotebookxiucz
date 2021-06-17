@@ -13,6 +13,14 @@ cd GRCh37_v19_CTAT_lib_Feb092018/
 --pfam_db PFAM.domtblout.dat.gz
 ```
 
+###
+```
+GRCh37_gencode_v19_CTAT_lib_Mar012021.source.tar.gz
+
+
+```
+
+
 http://note.youdao.com/noteshare?id=365f4e006571dab8d6b4e411eca81e57
 ## 其工作原理分为三步：
 
