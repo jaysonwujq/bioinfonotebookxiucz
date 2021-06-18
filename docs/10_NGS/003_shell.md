@@ -51,3 +51,50 @@ echo "/local_data1/work/zhangbo/software/samtools-1.9/samtools view -@ 4 -F 256 
 
 done
 ```
+
+### 位置参数
+```
+$* 是把所有的参数当成为一个整体 
+$@ 则是把每个参数独立看待。
+$# 表示位置参数的个数, 也可以理解为最后一个参数的下标
+``` 
+
+```
+# test.sh
+
+echo "${@: 1:1}"
+echo "${@: 2:1}"
+echo "${@: 3:1}"
+echo "${@: $#:1}"
+echo "${@: $#-1:1}"
+echo "${@: $#-2:1}"
+echo "************"
+echo "${@:1:1}"
+echo "${@:2:1}"
+echo "${@:3:1}"
+echo "*************"
+x=${@:2:1}
+echo ${x}
+
+#echo $1 +x
+#echo $1 +y
+#shift 2
+#echo $@
+
+echo ####
+echo $@
+echo "${@: 1:1}"
+echo "${@: 2:1}"
+echo "${@: 3:1}"
+
+echo .....
+echo $@
+echo ${!#}
+echo '${@:1:$#-1}' ${@:1:$#-1}
+echo '${@:1:$#-1}' ${@:1:$#-1}
+echo '${@:2:$#-1}' ${@:2:$#-1}
+echo '${@:$#-1:1}' ${@:$#-1:1} #获取倒数数第二个参数
+#echo (${@:1:#})
+```
+#### Ref_Info
+https://www.jianshu.com/p/eaa3406b7cff
