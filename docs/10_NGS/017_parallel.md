@@ -1,3 +1,13 @@
+## 安装
+```
+wget -c https://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2
+tar jxvf parallel-20190122.tar.bz2
+cd parallel-20190122
+./configure
+make -j 4
+make install
+```
+
 xargs
 ```
  find /proc | xargs

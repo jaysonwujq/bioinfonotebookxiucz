@@ -9,7 +9,7 @@
 ```bash
 10000 reads; of these:
 #第一部分:是pair-end模式下的一致的比对结果
-#表示总共有这么多 对 的reads
+#表示总共有10000对 的reads
   10000 (100.00%) were paired; of these:
 #表示reads1和reads2不能合理的比对到基因组上
     650 (6.50%) aligned concordantly 0 times
@@ -24,7 +24,7 @@
       34 (5.23%) aligned discordantly 1 time
     ----
 #第三部分：对剩余reads（既不能concordantly，也不能discordantly 1 times）的单端模式的比对
-#表示10000-(8823+527+34=616
+#表示10000-(8823+527+34)=616
     616 pairs aligned 0 times concordantly or discordantly; of these:
 #表示总共有这么多条reads,616*2
       1232 mates make up the pairs; of these:

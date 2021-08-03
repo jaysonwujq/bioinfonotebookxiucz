@@ -7,6 +7,40 @@ http://www.bioconductor.org/packages/2.9/bioc/html/exomeCopy.html
 
 https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-15-661
 
+### bug
+1. 为了减少麻烦，使用R：https://cran.r-project.org/src/base/R-3/R-3.1.2.tar.gz。
+2. 修改路径并运行, 
+```
+DECoN-master/Linux/setup.sh
+#!/bin/bash
+
+[ -w ".Rprofile" ] && rm .Rprofile
+
+/local_data1/MED/programs/R/R-3.2.1/bin/Rscript sessionInfo.R --bootstrap-packrat > setup.log 2>&1
+
+cp packrat/packrat_source/.Rprofile ./
+
+```
+下载依赖的包，对应版本可以搜索得到
+```
+https://cran.r-project.org/src/contrib/Archive/digest/digest_0.6.8.tar.gz
+wget https://cran.r-project.org/src/contrib/Archive/VGAM/VGAM_0.9-8.tar.gz
+
+source("http://bioconductor.org/biocLite.R")
+biocLite("BiocParallel")
+
+```
+### 修改脚本
+IdentifyFailures.R这一步似乎消耗大量的内存,这种sapply 绝了。
+```
+brca<-sapply(failed.calls$chr, '==',exons$Chr) & sapply(failed.calls$start, '>=',exons$Start) \
+    & sapply(failed.calls$end, '<=',exons$End) | \
+    sapply(failed.calls$chr, '==',exons$Chr) & sapply(failed.calls$start, '<=',exons$Start) \
+    & sapply(failed.calls$end, '>=',exons$Start) | \
+    sapply(failed.calls$chr, '==',exons$Chr) & sapply(failed.calls$start, '<=',exons$End) \
+    & sapply(failed.calls$end, '>=',exons$End)
+```
+
 ```
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")

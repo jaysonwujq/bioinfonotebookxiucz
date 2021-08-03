@@ -1,4 +1,5 @@
 
+
 ## Data Resources Required
 https://data.broadinstitute.org/Trinity/CTAT_RESOURCE_LIB/
 plug-n是已经建立好的reference lib, 而source里面包含了所需的原始文件。从原始文件构建reference lib的命令如下:
@@ -64,6 +65,8 @@ ref_annot.cdsplus.fa      trans.blast.align_coords.align_coords.dbm
 ref_annot.cdsplus.fa.idx  trans.blast.dat.gz
 ref_annot.gtf
 ```
+
+>>> The genome should be the primary type - which comes with scaffolds (but no patches and haplotypes).
 
 http://note.youdao.com/noteshare?id=365f4e006571dab8d6b4e411eca81e57
 ## 其工作原理分为三步：
