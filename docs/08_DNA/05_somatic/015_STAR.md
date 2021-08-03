@@ -65,11 +65,6 @@ SJ.out.tab
 ```
 
 
---chimSegmentMin 20 --chimOutTypeWithinBAM
-
-In order to obtain alignments of chimeric reads potentially supporting fusions, we have added the --chimSegmentMin 20 option to obtain chimerica reads anchored by at least 20nt on either side of the fusion boundary, and --chimOutTypeWithinBAM to report such alignments in the sam/bam output.
-
-
 | **p** | default| 描述|**arriba** |STAR-Fusion|
 |:---------|:---------------|:----|:------------|:----|
 |--outStd | |BAM_Unsorted | | |
@@ -80,8 +75,8 @@ In order to obtain alignments of chimeric reads potentially supporting fusions, 
 --alignSplicedMateMapLminOverLmate| 0.66 | alignSplicedMateMapLmin normalized to mate length|0.5|0|
 --alignSplicedMateMapLmin|0|minimum mapped length for a read mate that is spliced|-|30|
 --alignSJstitchMismatchNmax|0 -1 0 0 | | 5 -1 5 5 | 5 -1 5 5 |
---chimSegmentMin |0|-| 10 |12|
---chimOutType |Junctions||-|WithinBAM HardClip
+--chimSegmentMin |0| parameter controls the minimum mapped length of the two segments that is allowed.| 10 |12|
+--chimOutType |Junctions|-|WithinBAM HardClip| - |
 --chimJunctionOverhangMin| 20|minimum overhang for a chimeric junction|10|8|
 --chimScoreDropMax |20|max drop (difference) of chimeric score (the sum of scores of all chimeric segments) from the read length|30| -|
 --chimScoreJunctionNonGTAG |-1 | penalty for a non-GT/AG chimeric junction | 0| -4|
@@ -91,23 +86,21 @@ In order to obtain alignments of chimeric reads potentially supporting fusions, 
 --twopassMode |-|-|-|Basic
 --outSAMstrandField |-|-|-|intronMotif|
 --chimOutJunctionFormat|-|-|-|1(# **essential** includes required metadata in Chimeric.junction.out file.)|
---alignSJDBoverhangMin|3|-|-|10|
---alignMatesGapMax|||-|100000(# avoid readthru fusions within 100k)|
---alignIntronMax|||-|100000|
---chimMultimapScoreRange|||3|
---chimScoreJunctionNonGTAG|||-4|
---chimNonchimScoreDropMin|||10|
---peOverlapMMp|||0.1|
---alignInsertionFlush|||Right|
-|--outFilterMatchNmin 20 | 决定了过滤参数|
+--alignSJDBoverhangMin|3|is used at the mapping step to define the minimum allowed overhang over splice junctions. For example, the default value of 3 would prohibit overhangs of 1b or 2b.|-|10|
+--alignMatesGapMax| 0 | maximum gap between two mates, if 0, max intron gap will be determined by (2ˆwinBinNbits)*winAnchorDistNbins| - | 100000(# avoid readthru fusions within 100k)|
+--alignIntronMax|0 |maximum intron size, if 0, max intron size will be determined by (2ˆwinBinNbits)*winAnchorDistNbins | - | 100000 |
+--chimMultimapScoreRange|1|-|-|3|
+--chimNonchimScoreDropMin|20|-|-|10|
+--peOverlapMMp|0.01|-|-|0.1|
+--alignInsertionFlush|None|-|-|Right|
+|--outFilterMatchNmin |20 |alignment will be output only if the number of matched bases is higher than or equal to this value.| -| -|
+|----|----|----|----|----|
 | --readFilesCommand  |  UncompressionCommand/zcat/gunzip -c|
 | --sjdbGTFfile |specifies the path to the file with annotated transcripts in the standard GTF format. STAR will extract splice junctions from this file and use them to greatly improve accuracy of the mapping.  While this is optional, and STAR can be run without annotations, using annotations is highly recommended whenever they are available. Starting from 2.4.1a, the annotations can also be included on the fly at the mapping step.|
 |--sjdbOverhang | 1. specifies the length of the genomic sequence around the annotated junction to be used in constructing the splice junctions database. Ideally, this length should be equal to the ReadLength-1, where ReadLength is the length of the reads. For instance, for Illumina 2x100b paired-end reads, the ideal value is 100-1=99. In case of reads of varying length, the ideal value is max(ReadLength)-1. In most cases, the default value of 100 will work as well as the ideal value. 2. The --sjdbOverhang is used only at the genome generation step, and tells STAR how many bases to concatenate from donor and acceptor sides of the junctions. If you have 100b reads, the ideal value of --sjdbOverhang is 99, which allows the 100b read to map 99b on one side, 1b on the other side. One can think of --sjdbOverhang as the maximum possible overhang for your reads. 仅仅用在建立剪接数据中步骤中。 如果设置为0，剪接位点数据框则不会被用到。|
 |--sjdbOverhang|This also means that for every different read-length to be aligned a new genome SA needs to be generated. Otherwise a drop in aligned reads can be experienced.|
-|--alignSJDBoverhangMin| is used at the mapping step to define the minimum allowed overhang over splice junctions. For example, the default value of 3 would prohibit overhangs of 1b or 2b.|
 | --genomeLoad | LoadAndKeep NoSharedMemory Remove LoadAndRemove LoadAndExit|
 |--outSAMunmapped  | Within KeepPairs/ Within|
-|--chimSegmentMin | parameter controls the minimum mapped length of the two segments that is allowed.|
 |--sjdbOverhang| specifies the length of the genomic sequence around the annotated junction to be used in constructing the splice junctions database. Ideally, this length should be equal to the ReadLength-1, where ReadLength is the length of the reads. For instance, for Illumina 2x100b paired-end reads, the ideal value is 100-1=99. In case of reads of varying length, the ideal value is max(ReadLength)-1. In most cases, the default value of 100 will work as well as the ideal value.|
 |--twopassMode Basic|使用two-pass模式进行reads比对。简单来说就是先按索引进行第一次比对，而后把第一次比对发现的新剪切位点信息加入到索引中进行第二次比对。|
 |--quantMode TranscriptomeSAM GeneCounts|将reads比对至转录本序列。|
@@ -130,17 +123,6 @@ In order to obtain alignments of chimeric reads potentially supporting fusions, 
 compression, 10=maximum compression|||
 
 
-```
---quantMode TranscriptomeSAM GeneCounts 
---outSAMattrRGline ID:AG1131-2 SM:AG1131-2 LB:AG1131-2 PU:illumina PL:illumina
---quantTranscriptomeBAMcompression 10
---chimOutType SeparateSAMold  》》》Chimeric.out.sam
---chimOutType Junctions 》》》Chimeric.out.junction
---outReadsUnmapped Fastx
---outTmpDir
---outStd default: Log
-
-```
 
 ## 输出
 ### Aligned.out.bam
