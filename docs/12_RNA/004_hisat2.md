@@ -1,0 +1,3 @@
+参考基因组选择正确的版本还是有必要的。primary的版本中是不包括haplotype info的，而top level中会包含大量的变异信息，而这部分是很冗余并且一般也用不太到。primary_assembly 和 toplevel相比不包含haplotype, 更适合用于比对。 - 解压参考基因组，会非常大 - 对于mask/unmask 通常选择softmask或者unmasked, 一般不用rm的 - 小鼠的基因是Mus musculus，例如ENSEMBL
+
+不同基因组版本差异： - 一般是选择primary来比对 - 不同mask的差别： - dna 版本对应测序组装得到的原始基因组序列 - dna_sm版本对应 用小写字母代替了重复和低复杂度区域的全基因组序列 - dna_rm版本对应 用 “NNN” 屏蔽了重复和低复杂度区域的全基因组序列 - 三种全基因组在序列长度上是一致的，只是在重复序列区或低复杂度区存在差异。事实上很多比对软件对大小写不敏感，例如BWA，所以用 unmasked 和 softmasked 的基因组做参考序列，比对得到的结果有时候是一致的。

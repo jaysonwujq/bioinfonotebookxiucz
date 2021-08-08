@@ -21,9 +21,4 @@ hs37d5+RefSeq
       +ENSEMBL87
 ```
 
-
-```
-STAR --chimOutType WithinBAM， then this file contains all the information needed by Arriba to find fusions 
-
-     --chimOutType SeparateSAMold, the main output file lacks chimeric alignments.
-```
+## 参数理解
