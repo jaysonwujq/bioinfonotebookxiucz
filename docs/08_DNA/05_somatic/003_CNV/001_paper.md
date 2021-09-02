@@ -9,6 +9,12 @@
 
 <!-- /TOC -->
 
+# Benchmark of tools for CNV detection from NGS panel data in a genetic diagnostics context 
+￼DECoN, CoNVaDING, panelcn.MOPS, ExomeDepth and CODEX2
+￼DECoN and panelcn.MOPS with optimized parameters showed enough sensitivity to be used as screening methods in genetic diagnostics.
+
+----
+
 # Copy-Number Variants Detection by Low-Pass Whole-Genome Sequencing
   + DOI: 10.1002/cphg.43
 ----

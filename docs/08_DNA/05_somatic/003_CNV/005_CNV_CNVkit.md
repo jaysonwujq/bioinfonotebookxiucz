@@ -2,20 +2,16 @@
 
 - [Install](#install)
 - [Concept](#concept)
-  - [.](#)
+  - [流程](#流程)
+    - [单独绘图](#单独绘图)
     - [target](#target)
       - [Bin size and resolution](#bin-size-and-resolution)
-      - [Labeling target regions](#labeling-target-regions)
     - [access](#access)
     - [bed](#bed)
-  - [output](#output)
-    - [](#-1)
-  - [cnvkit](#cnvkit)
-  - [targeted amplicon sequencing](#targeted-amplicon-sequencing)
-  - [In practice we see good results with an average of 200–300 reads per bin。](#in-practice-we-see-good-results-with-an-average-of-200300-reads-per-bin)
-  - [http://born2run.cn/2018/05/17/cnvkit-information/](#httpborn2runcn20180517cnvkit-information)
-    - [weight值在cns文件中意思](#weight值在cns文件中意思)
-    - [](#-2)
+- [output](#output)
+- [深入](#深入)
+  - [weight值在cns文件中意思](#weight值在cns文件中意思)
+    - [](#)
     - [sex chromosome](#sex-chromosome)
   - [过滤方法](#过滤方法)
 
@@ -25,10 +21,6 @@ Github地址：https://github.com/etal/cnvkit
 
 官方教程地址：https://cnvkit.readthedocs.io/en/stable/index.html
 
-cnvkit-0.9.4a0
-
-
-#
 # Install
 github:
 https://github.com/etal/cnvkit
@@ -57,27 +49,17 @@ Solving environment: done
 
 # Concept
 
-
-## .
-
-
-
+## 流程
 coverage—>fix—>segment—>segment
 
-
 ```
- cnvkit.py batch *Tumor.bam --normal *Normal.bam \
-
+cnvkit.py batch *Tumor.bam --normal *Normal.bam \
 --targets my_baits.bed --annotate refFlat.txt \
-
- --fasta hg19.fasta --access data/access-5kb-mappable.hg19.bed \
-
+--fasta hg19.fasta --access data/access-5kb-mappable.hg19.bed \
 --output-referencemy_reference.cnn --output-dir results/ \
-
 --diagram –scatter
 ```
-–targets: Target file corresponding to the exome probes
-:target后接的是`SeqCap_EZ_Exome_v3_hg38_primary_targets.v2.bed`
+–targets: Target file corresponding to the exome probes:target后接的是`SeqCap_EZ_Exome_v3_hg38_primary_targets.v2.bed`
 
 ```
 cnvkit.py access hg19.fa -o access.hg19.bed
@@ -99,7 +81,7 @@ cnvkit.py scatter Sample.cnr -s Sample.cns -o Sample-scatter.pdf
 cnvkit.py diagram Sample.cnr -s Sample.cns -o Sample-diagram.pdf
 ```
 
-单独绘图
+### 单独绘图
 ```
 /home/anaconda2/envs/cnvkit/bin/cnvkit.py scatter -s 700_bwa.sam.cn{s,r} -c chr7 -o scatter-chr7.pn
 ```
@@ -124,12 +106,6 @@ Since these regions (usually exons) may be of unequal size, the --split option d
 例如，将窗口的平均大小设置为100bp，将产生大约两倍的窗口，这可能会导致更高分辨率的分割。但是，每个窗口中reads的读取次数将减少大约一半，从而增加窗口覆盖度的差异或“噪音”。过多的带噪窗口可能会使可视化变得困难，并且由于噪音可能无法均匀分布，尤其是在存在许多覆盖度零的窗口的情况下，分割算法可能会在低覆盖率样本上产生不太准确的结果。实际上，我们看到了很好的结果，每个窗口内平均有200–300条reads；因此，我们建议总的靶标测序覆盖深度至少为200x到300x，读取长度为100bp，以证明将平均靶标窗口大小降低到100bp是合理的。
 
 对于杂交捕获，如果靶不是均匀的tiled with uniform density
-#### Labeling target regions
-```
---short-names
---annotate
-consecutive targeted regions
-```
 
 ### access
 The access command computes the locations of the accessible sequence regions for a given reference genome based on these masked-out sequences, treating long spans of ‘N’ characters as the inaccessible regions and outputting the coordinates of the regions between them.access命令基于这些被屏蔽的序列来计算给定参考基因组的可访问序列区域的位置，将“N”个字符的长跨度视为不可访问区域并输出它们之间的区域的坐标。
@@ -164,20 +140,6 @@ bedtools merge -i SeqCap_EZ_Exome_v3_hg38_primary_targets.v2.sort.bed > SeqCap_E
 perl -ne 'chomp; @l=split("\t",$_); $size += $l[2]-$l[1]; print "$size\n"' SeqCap_EZ_Exome_v3_hg38_primary_targets.v2.sort.merge.bed
 ```
 
-## output
-+ **reference.cnn** is the copy number control used for normalization of test samples.
-+ **.cnr** means normalized copy ratios. These are processed test samples, already normalized to the reference.
-+ **.cns** means copy number segments. These are the result of segmenting .cnr files, essentially where bins with similar estimated copy number are joined together.
-
-###  
- --method wgs 选项
- 
- cnvkit
---------------------------------------------------------------------------------
-hybrid capture
-whole-genome sequencing
-targeted amplicon sequencing
---------------------------------------------------------------------------------
 **target BED** vs **bait BED**: 
 CNVkit uses the bait BED file (provided by the vendor of your capture kit)
 For hybrid capture, **the targeted regions (or “primary targets”)** are the genomic regions your capture kit attempts to ensure are well covered, e.g. exons of genes of interest.
@@ -187,37 +149,54 @@ For hybrid capture, **the targeted regions (or “primary targets”)** are the 
 |---|---|
 |target BED|  bait BED|
 |primary targets| capture targets|
-｜-｜probes.bed｜
+|-|probes.bed|
 |位点设计的时候考虑的|探针设计的时候考虑的（实际捕获到的）|
 Sequencing protocol: 
 + hybridization capture ('hybrid'),
 + targeted amplicon sequencing ('amplicon'),
 + whole genome sequencing ('wgs')
+  
+## reference
+reference.cnn文件:
+```
+“log2” the expected read depth 
 
-In practice we see good results with an average of 200–300 reads per bin。
---------------------------------------------------------------------------------
-access
-Calculate the sequence-accessible coordinates in chromosomes from the given reference genome, output as a BED file.计算来自给定参考基因组的染色体中序列可访问的坐标，输出为BED文件。
+“spread” and the reliability of this estimate.
 
-Many fully sequenced genomes, including the human genome, contain large regions of DNA that are inaccessable to sequencing. (These are mainly the centromeres, telomeres, and highly repetitive regions.) In the reference genome sequence these regions are filled in with large stretches of “N” characters. These regions cannot be mapped by rese- quencing, so CNVkit avoids them when calculating the antitarget bin locations.许多完全测序的基因组，包括人类基因组，都含有大量DNA序列，这些DNA区域无法进行测序。（这些主要是着丝粒，端粒和高度重复的区域。）在参考基因组序列中，这些区域用大片“N”字符填充。 这些区域无法通过重新排序进行映射，因此CNVkit在计算antitarget bin位置时会避免它们。
+“gc”
 
-http://born2run.cn/2018/05/17/cnvkit-information/
---------------------------------------------------------------------------------
-https://cnvkit.readthedocs.io/en/stable/germline.html
+“rmask”
+```
 
-https://cnvkit.readthedocs.io/en/stable/nonhybrid.html
-The batch --method wgs option uses the given reference genome’s sequencing-accessible regions (“access” BED) as the “targets” 
-No “antitarget” regions are used.
-Since the input does not contain useful per-target gene labels, a gene annotation database is required and used to label genes in the outputs
-cnvkit.py batch Sample1.bam Sample2.bam -n Control1.bam Control2.bam \
-        -m wgs -f hg19.fasta --annotate refFlat.txt
+## fix
+CNVkit filters out bins failing certain predefined criteria: those where the reference log2 read depth is below a threshold (default -5), or the spread of read depths among all normal samples in the reference is above a threshold (default 1.0).
+
+A weight is assigned to each remaining bin depending on:
+
++ The size of the bin;
++ The deviation of the bin’s log2 value in the reference from 0;
++ The “spread” of the bin in the reference.
+
+(The latter two only apply if at least one normal/control sample was used to build the reference.)
+
+## segmetrics
+For confidence interval filtering (--ci), the criterion is whether each segment's confidence interval includes the log2 value 0.0. Those adjacent segments whose CI includes 0.0 are merged together; the remaining segments are left alone.
+For integer copy number merging (--cn), the criterion is the cn column value. Adjacent segments with the same integer copy number are merged together.
+The confidence interval is calculated by bootstrapping (--ci), not by the summary statistics (other options). The parameter is --alpha, default 0.05 in segmetrics and 0.5 in batch.
+
+You can use --filter in tumor analysis, too. It's mentioned in the germline tips page because it's common in germline analysis for the number of false positives to be problematic enough to require more automated filtering.
 
 
-The batch -m amplicon option uses the given targets to infer coverage, ignoring off-target regions:
-This approach does not collect any copy number information between targeted regions, so it should only be used if you have in fact prepared your samples with a targeted amplicon sequencing protocol.
+# output
++ **reference.cnn** is the copy number control used for normalization of test samples.
++ **.cnr** means normalized copy ratios. These are processed test samples, already normalized to the reference.
++ **.cns** means copy number segments. These are the result of segmenting .cnr files, essentially where bins with similar estimated copy number are joined together.
 
 
-### weight值在cns文件中意思
+# 深入
++ In practice we see good results with an average of 200–300 reads per bin。
+
+## weight值在cns文件中意思
 weigt值并不直接和p-value有关。在老版本中表示segment覆盖的窗口的权重的平均值，而在新版或者近期版本中则是求和。
 
 The weight value doesn't correspond directly to a p-value. It's either the sum (current & recent CNVkit versions) or mean (some earlier versions) of the weights of the bins that the segment covers. Those weights indicate the estimated standard deviation of bin log2 values in a (possibly hypothetical) pool of normal samples used as the reference -- in the reference .cnn file this is the "spread" column. Reference bins with spread > 1.0 are dropped automatically under the assumption that they're unreliable.
@@ -226,6 +205,10 @@ The weight value doesn't correspond directly to a p-value. It's either the sum (
 
 If you want to quantify the reliability of a segment, try the segmetrics command, in particular the --ci (confidence interval) or --sem (standard error) options.
 https://www.biostars.org/p/266688/
+
+> The weights are initially set to be approximately 1 - variance, using a few different approaches to estimate variance, under the assumption that read depths are Poisson distributed (so approximately log-normal for reasonable sequencing depths, so log-ratios are approximately normal). It gets a little hacky to deal with some edge cases and practicalities, but that's the underlying rationale. Therefore sd = sqrt(1 - (1 - variance)).
+
+https://github.com/etal/cnvkit/issues/429
 
 ###  
 + segmented log2 ratios 
