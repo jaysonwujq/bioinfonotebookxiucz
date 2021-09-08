@@ -73,6 +73,8 @@ cd $VEP_DATA
 wget -c http://ftp.ensembl.org/pub/release-104/variation/indexed_vep_cache/homo_sapiens_refseq_vep_104_GRCh37.tar.gz
 ```
 ### 3. 下载vep api
+http://www.ensembl.org/info/docs/tools/vep/script/vep_download.html#requirements
+
 ```
 perl INSTALL.pl --AUTO ap --SPECIES homo_sapiens --ASSEMBLY GRCh37 --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA
 

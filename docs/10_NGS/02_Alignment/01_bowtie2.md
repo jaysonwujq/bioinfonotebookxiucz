@@ -4,6 +4,8 @@
 --un-conc <path> 将不能和谐比对的paired-end reads写入<path>.
 --al-conc <path> 将至少能和谐比对一次以上的paired-end reads写入<path>.
 
+To illustrate the difference, think of a read pair with one mate mapped and the other unmapped. samtools -f 4 will only return you the read that is unmapped, while bowtie2 --un-conc will give you the full pair.
+
 ```
 
 ```bash
@@ -39,7 +41,10 @@
 ```
 
 ```
-03/18/2020 09:50:22 PM - kneaddata.utilities - INFO: Execute command: kneaddata_bowtie2_discordant_pairs --bowtie2 /local_data1/pipeline/Transcriptome/PB_Isoseq_noref_V1.0/software/bowtie2-2.3.5-linux-x86_64/bowtie2 --threads 5 -x /local_data1/MED/database/cat/GCF_000181335.3_Felis_catus_9.0_genomic --bowtie2-options "--very-sensitive --phred33" -1 /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/decompressed_59a0fv5r_GG-PCR.trim_1P.fastq -2 /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/decompressed_unqs1m8r_GG-PCR.trim_2P.fastq --un-pair /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/GG-PCR_GCF_000181335.3_Felis_catus_9.0_genomic_bowtie2_paired_clean_%.fastq --al-pair /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/GG-PCR_GCF_000181335.3_Felis_catus_9.0_genomic_bowtie2_paired_contam_%.fastq --un-single /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/GG-PCR_GCF_000181335.3_Felis_catus_9.0_genomic_bowtie2_unmatched_%_clean.fastq --al-single /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/GG-PCR_GCF_000181335.3_Felis_catus_9.0_genomic_bowtie2_unmatched_%_contam.fastq -S /dev/null
+03/18/2020 09:50:22 PM - kneaddata.utilities - INFO: Execute command: kneaddata_bowtie2_discordant_pairs \
+--bowtie2 /local_data1/pipeline/Transcriptome/PB_Isoseq_noref_V1.0/software/bowtie2-2.3.5-linux-x86_64/bowtie2 --threads 5 -x /local_data1/MED/database/cat/GCF_000181335.3_Felis_catus_9.0_genomic --bowtie2-options "--very-sensitive --phred33" \
+-1 /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/decompressed_59a0fv5r_GG-PCR.trim_1P.fastq \
+-2 /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/decompressed_unqs1m8r_GG-PCR.trim_2P.fastq --un-pair /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/GG-PCR_GCF_000181335.3_Felis_catus_9.0_genomic_bowtie2_paired_clean_%.fastq --al-pair /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/GG-PCR_GCF_000181335.3_Felis_catus_9.0_genomic_bowtie2_paired_contam_%.fastq --un-single /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/GG-PCR_GCF_000181335.3_Felis_catus_9.0_genomic_bowtie2_unmatched_%_clean.fastq --al-single /local_data1/MED/projects/zhangbo/mngs/YF2020-01/out/02_deplete/kneaddata/host/GG-PCR_GCF_000181335.3_Felis_catus_9.0_genomic_bowtie2_unmatched_%_contam.fastq -S /dev/null
 
 
 kneaddata_bowtie2_discordant_pairs --bowtie2 /local_data1/pipeline/Transcriptome/PB_Isoseq_noref_V1.0/software/bowtie2-2.3.5-linux-x86_64/bowtie2 --threads 6 -x /local_data1/MED/workdir/chengyuanfang/database/mouse_M25/ref/GRCm38.p6.genome.fa --bowtie2-options "--very-sensitive --phred33" -1 /local_data1/MED/projects/zhangbo/mngs/202012/whfs-xs-201118/20201218_bowtie2/decompressed_lf3e3m1k_OP4.trim_1P.fastq -2 /local_data1/MED/projects/zhangbo/mngs/202012/whfs-xs-201118/20201218_bowtie2/decompressed_1xkt1b58_OP4.trim_2P.fastq --un-pair /local_data1/MED/projects/zhangbo/mngs/202012/whfs-xs-201118/20201218_bowtie2/OP4_GRCm38.p6.genome.fa_bowtie2_paired_clean_%.fastq --al-pair /local_data1/MED/projects/zhangbo/mngs/202012/whfs-xs-201118/20201218_bowtie2/OP4_GRCm38.p6.genome.fa_bowtie2_paired_contam_%.fastq --un-single /local_data1/MED/projects/zhangbo/mngs/202012/whfs-xs-201118/20201218_bowtie2/OP4_GRCm38.p6.genome.fa_bowtie2_unmatched_%_clean.fastq --al-single /local_data1/MED/projects/zhangbo/mngs/202012/whfs-xs-201118/20201218_bowtie2/OP4_GRCm38.p6.genome.fa_bowtie2_unmatched_%_contam.fastq --reorder -S /dev/null

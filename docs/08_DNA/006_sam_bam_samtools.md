@@ -3,51 +3,8 @@
 
 http://www.htslib.org/download/
 ```
-#
-wget -c https://github.com///releases/download/1.9/-1.9.tar.bz2
-tar -jxvf -1.9.tar.bz2 
-./configure --prefix=/where/to/install
-make
-make install
-export PATH=/where/to/install/bin:$PATH    # for sh or bash users
-#
-mkdir 
+export HTSLIB_DIR=${HOME}/src/htslib/
 
-  git clone https://github.com//htslib.git
-  cd htslib
-  autoheader
-  autoconf
-  ./configure --prefix=/home/software//htslib
-  make
-  make install
-  cd ..
-  
-  git clone https://github.com//bcftools.git
-  cd bcftools
-  autoheader
-  autoconf
-  ./configure --prefix=/home/software//bcftools
-  make
-  make install
-  cd ..
-  
-  git clone https://github.com//tabix.git
-  cd tabix
-  make
-  cd ..
-
-  git clone https://github.com//.git
-  cd 
-  autoheader
-  autoconf -Wno-syntax
-  ./configure --prefix=/home/software//
-  make
-  make install
-  cd ..
-
-安装结束后
-export TOOLDIR=/home/software/
-make BAMTOOLS=/your/path/to/bamtools
 ```
 
 ## bam file visualize

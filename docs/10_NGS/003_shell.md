@@ -96,5 +96,23 @@ echo '${@:2:$#-1}' ${@:2:$#-1}
 echo '${@:$#-1:1}' ${@:$#-1:1} #获取倒数数第二个参数
 #echo (${@:1:#})
 ```
+
+## shell数组与字符串
+```
+f=/home/usrname/dir/x.txt
+#获取文件名
+echo ${f##*/}
+#获取文件名前缀
+b="x.txt"
+c=${b%.*}
+
+
+
+
+```
+http://c.biancheng.net/view/1120.html
+https://www.cnblogs.com/fengbohello/p/5954895.html
+
+
 #### Ref_Info
 https://www.jianshu.com/p/eaa3406b7cff
