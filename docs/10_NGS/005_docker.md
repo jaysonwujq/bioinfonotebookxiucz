@@ -1,6 +1,23 @@
-<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=3 orderedList=false} -->
+<!-- TOC -->
+
+- [概念](#概念)
+- [基础信息](#基础信息)
+- [容器使用](#容器使用)
+  - [在容器内运行应用程序](#在容器内运行应用程序)
+- [镜像使用](#镜像使用)
+- [实例](#实例)
+- [其他](#其他)
+- [问题故障](#问题故障)
+    - [mage is being used by stopped container](#mage-is-being-used-by-stopped-container)
+    - [Got permission denied while trying to connect to the Docker daemon socket at unix:///var/](#got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket-at-unixvar)
+    - [权限问题](#权限问题)
+
+<!-- /TOC -->
+
 
 https://github.com/guoshijiang/-virtual-technology
+
+![](./pics/20210923.png)
 
 ## 概念
  包括三个基本概念:
@@ -17,6 +34,7 @@ https://github.com/guoshijiang/-virtual-technology
 image 文件生成的容器实例，本身也是一个文件，称为容器文件。也就是说，一旦容器生成，就会同时存在两个文件： image 文件和容器文件。而且关闭容器并不会删除容器文件，只是容器停止运行而已。
 
 ## 基础信息
+容器层面：
 ```bash
  <仓库名>:<标签>
 
@@ -33,10 +51,13 @@ docker ps -a #查看所有运行或者不运行容器
 docker stop $(docker ps -a -q) 或者 docker stop $(docker ps -aq) #停止所有的container（容器），这样才能够删除其中的images：
 docker rm $(docker ps -a -q) 或者 docker rm $(docker ps -aq) #如果想要删除所有container（容器）的话再加一个指令
 docker rm -f webserver命令来移除正在运行的容器
+docker run —name NAMES IMAGE 将镜像IMAGE生成NAMES的容器/docker run ：创建一个新的容器并运行一个命令
+```
 
+镜像层面：
+```
 docker images 列出本地镜像
 docker rmi 删除镜像
-docker run —name NAMES IMAGE 将镜像IMAGE生成NAMES的容器
 docker image ls 列出镜像
 docker search python 寻找镜像
 docker pull python:3.5 获取镜像
@@ -75,25 +96,30 @@ docker run -d ubuntu:15.10 /bin/sh -c "while true; do echo hello world; sleep 1;
 我们可以通过运行 exit 命令或者使用 CTRL+D 来退出容器。
 
 # 进入容器
-docker attach
 docker exec：推荐大家使用  exec 命令，因为此退出容器终端，不会导致容器的停止。
+docker attach(不推荐)
+
+# 退出后容器停止再重启
+docker start
 
 ## 导出和导入容器
   export 1e560fca3906 > ubuntu.tar
 ```
+
 
 ## 镜像使用
 我们使用 REPOSITORY:TAG 来定义不同的镜像。
 ```
 #删除镜像
 rmi hello-world
+docker container run
+docker image pull
+
+#Dockerfile用于在带有Dockerfile的文件夹中使用以下命令构建镜像:
+docker build -t davetang/rstudio .
 ```
 
-https://mp.weixin.qq.com/s?__biz=MzUzMTEwODk0Ng==&mid=2247490244&idx=1&sn=f42a566710fa68ebd92b7d350359314e&chksm=fa46dff9cd3156ef7b4cd7d151cbcfc61518c00a10056ed4377ddd6c50858c7f99fb4eb2d3e7&scene=21#wechat_redirect
-
-`docker container run`  `docker image pull`
-
-## 
+## 实例
 ```{bash}
 $ docker pull polyactis/accurity
 $ docker images
@@ -102,22 +128,28 @@ $ docker run -i -t polyactis/accurity /bin/bash
 # Log into the docker image.
 # Mount /home/mydata, which contains your bam files and the reference data, to /mnt inside the docker
 $ docker run -i -t -v /home/mydata:/mnt polyactis/accurity /bin/bash
+
+
+## 
+docker run -it --rm -v /tmp/:/data continuumio/miniconda3
+/tmp/是本地文件系统上数据目录的文件路径。
+/data是容器中链接数据的文件夹的文件路径。
+/data文件夹中的任何数据都将被本地文件系统中的数据替换。
+-v选项指定你本地需要替换到容器里的路径。对容器中数据所做的任何更改，都会同步到本地文件的数据中。
+
+
 ```
 
 ## 其他
 ```
 #进入docker的镜像目录。
 cd /var/lib/docker 
-```
-image镜像在哪里
-image文件夹下存放镜像内容
-```
+#image镜像在哪里
+#image文件夹下存放镜像内容
 cd image/overlay2  # 有的是image/aufs  
 cat repositories.json  # 查看镜像仓库内容
-```
-container容器在哪里
-container文件夹下存放容器内容
-```
+#container容器在哪里
+#container文件夹下存放容器内容
 cd containers 
 ls -l  # 查看容器列表
 ```

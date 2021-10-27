@@ -1,3 +1,17 @@
+<!-- TOC -->
+
+- [ack](#ack)
+- [rsync](#rsync)
+- [tee](#tee)
+	- [统计fastq中每个读长的counts数](#统计fastq中每个读长的counts数)
+- [shell数组](#shell数组)
+- [位置参数](#位置参数)
+- [字符串截取](#字符串截取)
+- [shell数组与字符串](#shell数组与字符串)
+		- [Ref_Info](#ref_info)
+
+<!-- /TOC -->
+
 ## ack
 ## rsync
 ## tee
@@ -21,7 +35,7 @@ ggplot(reads, aes(x=reads$V2, y=reads$V1)) +
 	ggtitle('Read Length Distribution')
 ```
 
-### shell数组
+## shell数组
 ```
 https://www.cnblogs.com/qdhxhz/p/10902110.html
 
@@ -52,12 +66,23 @@ echo "/local_data1/work/zhangbo/software/samtools-1.9/samtools view -@ 4 -F 256 
 done
 ```
 
-### 位置参数
+## 位置参数
 ```
 $* 是把所有的参数当成为一个整体 
 $@ 则是把每个参数独立看待。
 $# 表示位置参数的个数, 也可以理解为最后一个参数的下标
 ``` 
+
+## 字符串截取
+Shell 截取字符串通常有两种方式：
++ 从指定位置开始截取，
+  + 1) 从字符串左边开始计数
+    + ${string: start :length}
+  + 2) 从右边开始计数
+    + ${string: 0-start :length}
++ 从指定字符（子字符串）开始截取。
+  + 1) 使用 # 号截取右边字符
+  + 2) 使用 % 截取左边字符
 
 ```
 # test.sh

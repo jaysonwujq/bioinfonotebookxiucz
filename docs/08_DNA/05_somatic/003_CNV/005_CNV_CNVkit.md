@@ -8,12 +8,17 @@
       - [Bin size and resolution](#bin-size-and-resolution)
     - [access](#access)
     - [bed](#bed)
+  - [reference](#reference)
+  - [fix](#fix)
+  - [segmetrics](#segmetrics)
+  - [bintest](#bintest)
 - [output](#output)
 - [深入](#深入)
   - [weight值在cns文件中意思](#weight值在cns文件中意思)
     - [](#)
     - [sex chromosome](#sex-chromosome)
   - [过滤方法](#过滤方法)
+  - [单个样本](#单个样本)
 
 <!-- /TOC -->
 
@@ -186,6 +191,10 @@ The confidence interval is calculated by bootstrapping (--ci), not by the summar
 
 You can use --filter in tumor analysis, too. It's mentioned in the germline tips page because it's common in germline analysis for the number of false positives to be problematic enough to require more automated filtering.
 
+## bintest
++ it looks like the log2 values in the bintest output are residuals. If the segments are provided, the residuals are calculated compared to the segment to which the bin belongs, and otherwise to the whole chromosome:
+
+
 
 # output
 + **reference.cnn** is the copy number control used for normalization of test samples.
@@ -245,3 +254,8 @@ Rerunning "batch" with the -y flag, the expected ploidies of the sex chromosomes
 2) Filter regions according the coverage
 3) Use Bayesian model
 4) Set Rate for filtering CNV
+
+## 单个样本
++ When you use flat reference, the log2 column will always be '0' and depth will always be '1' (you can check if this is the case in your reference file).
++ looking at the CNR file in your screenshot, you can see that log2 values are consistenly in the very negative range, suggesting that this region is indeed deleted. 
+
