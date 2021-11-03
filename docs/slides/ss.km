@@ -1,0 +1,109 @@
+{
+    "root": {
+        "data": {
+            "id": "cfaozk9q2ts0",
+            "created": 1635388915782,
+            "text": "MainTopic"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "cfap082wnuw0",
+                    "created": 1635388967612,
+                    "text": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tThe results of PCoA analysis showed a notable shift in the\ngut microbiota composition in the GX.DG samples at the later infection stage\n\t\t",
+                    "priority": 1,
+                    "layout": null
+                },
+                "children": []
+            },
+            {
+                "data": {
+                    "id": "cfapiwf16q00",
+                    "created": 1635390431143,
+                    "text": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tWe then analyzed the co-abundance gene groups (CAGs) of all genes to uncover any\ncorrelations between species abundance and the host’s health status.  \n\t\t",
+                    "priority": 2,
+                    "layout": null
+                },
+                "children": []
+            },
+            {
+                "data": {
+                    "id": "cfap0bxrh9c0",
+                    "created": 1635388976008,
+                    "text": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tInfluenza infection elicits an expansion of gut population of endogenous Bifidobacterium animalis which protects mice against infection \n\t\t",
+                    "layout": null
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "cfau1cqbsq00",
+                            "created": 1635403161649,
+                            "text": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tMetagenomic assembly, gene catalog generation, \nand rarefaction curve analysis \n\t\t",
+                            "layout": null
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "cfau2f6snfk0",
+                            "created": 1635403245363,
+                            "text": "topic",
+                            "layout": null
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "cfaqbjzvm0w0",
+                    "created": 1635392676666,
+                    "text": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tThe commensal microbiome is\nassociated with anti–PD-1 efficacy in\nmetastatic melanoma patients \n\t\t",
+                    "layout": null
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "cfaqc55lko00",
+                            "created": 1635392722724,
+                            "text": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tthree methods for DNA\nsequence–based bacterial identification \n\t\t",
+                            "layout": null
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "cfaqcq8ckd40",
+                                    "created": 1635392768603,
+                                    "text": "16R / 26NR个样本",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cfasyby6its0",
+                                    "created": 1635400103745,
+                                    "text": "1，获取了62+1 OTUs\n2，PCA 分析",
+                                    "layout": null
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "cfasyikj55c0",
+                                    "created": 1635400118157,
+                                    "text": "进一步进行39个样本的宏基因组测序，获得了43个\nspecies-level 的物种  ",
+                                    "layout": null
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "default",
+    "theme": "snow",
+    "version": "1.4.43"
+}
