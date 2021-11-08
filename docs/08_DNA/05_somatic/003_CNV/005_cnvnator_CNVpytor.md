@@ -71,5 +71,11 @@ EXAMPLE(s)
 cnvpytor> gc_info
 cnvpytor> show
 ```
+
+## python命令行
+```
+>>> print(view.param_help.get("callers"))
+
+```
 ## 过滤
 + The regions of deletion and duplication were then genotyped and only the regions with a copy number of >1.75 and <2.25 in normal samples were considered. To further filter the CNAs, only the regions with copy number difference greater than 0.2 with respect to normal tissue were chosen.（doi: 10.18632/oncotarget.23687）

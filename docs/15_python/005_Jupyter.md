@@ -19,6 +19,18 @@ Step-3: 打开浏览器，输入地址：
 http://localhost:8888/
 ```
 
+## R
+Jupyter notebook中使用R语言需打开R，安装R包"IRkernel"
+```
+install.packages('IRkernel')
+```
+然后在R的命令行里激活
+```
+IRkernel::installspec()
+```
+这时候会出现 
+
+
 #### Ref_Info 
 原文链接：https://blog.csdn.net/patrick75/article/details/51473884
 https://www.cnblogs.com/yangxiaolan/p/5778305.html
