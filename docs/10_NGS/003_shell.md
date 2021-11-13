@@ -1,14 +1,15 @@
 <!-- TOC -->
 
-- [ack](#ack)
-- [rsync](#rsync)
-- [tee](#tee)
-	- [统计fastq中每个读长的counts数](#统计fastq中每个读长的counts数)
-- [shell数组](#shell数组)
-- [位置参数](#位置参数)
-- [字符串截取](#字符串截取)
-- [shell数组与字符串](#shell数组与字符串)
-		- [Ref_Info](#ref_info)
+    - [ack](#ack)
+    - [rsync](#rsync)
+    - [tee](#tee)
+        - [统计fastq中每个读长的counts数](#统计fastq中每个读长的counts数)
+    - [shell数组](#shell数组)
+    - [位置参数](#位置参数)
+    - [字符串截取](#字符串截取)
+    - [shell数组与字符串](#shell数组与字符串)
+            - [Ref_Info](#ref_info)
+- [目录及文件操作](#目录及文件操作)
 
 <!-- /TOC -->
 
@@ -141,3 +142,15 @@ https://www.cnblogs.com/fengbohello/p/5954895.html
 
 #### Ref_Info
 https://www.jianshu.com/p/eaa3406b7cff
+
+
+# 目录及文件操作
+列出当前目录下的所有文件（包括隐藏文件）的绝对路径， 对目录不做递归
+```
+find  $PWD -maxdepth 1  | xargs ls -dl
+```
+
+递归列出当前目录下的所有文件（包括隐藏文件）的绝对路径
+```
+find  $PWD | xargs ls -ld
+```
