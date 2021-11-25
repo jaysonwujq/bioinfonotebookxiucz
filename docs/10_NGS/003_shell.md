@@ -10,6 +10,7 @@
     - [shell数组与字符串](#shell数组与字符串)
             - [Ref_Info](#ref_info)
 - [目录及文件操作](#目录及文件操作)
+  - [删除大量文件夹](#删除大量文件夹)
 
 <!-- /TOC -->
 
@@ -154,3 +155,5 @@ find  $PWD -maxdepth 1  | xargs ls -dl
 ```
 find  $PWD | xargs ls -ld
 ```
+
+## 删除大量文件夹
