@@ -158,3 +158,21 @@ find  $PWD | xargs ls -ld
 
 ## 删除大量文件夹
 
+示例
+清空目录或文件，如下： 
+1、先建立一个空目录
+``` 
+mkdir /data/blank 
+```
+2、用rsync删除目标目录 
+```
+rsync --delete-before -d -a -H -v --progress --stats /data/blank/ /var/edatacache/
+或者
+rsync --delete-before -d /data/blank/ /var/edatacache/
+```
+https://blog.csdn.net/cywosp/article/details/8285842
+
+```
+[root@mu01 lumpy-sv]# find .  -type f -delete -print
+[root@mu01 lumpy-sv]# find .  -type d -delete -print 
+```

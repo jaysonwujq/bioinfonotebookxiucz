@@ -42,3 +42,6 @@ l_NA12878_aligned_by_BI_downsampled_to_5x_coverage.fastq.gz
 ```
 ### cnv golden dataset
 https://doi.org/10.1371/journal.pcbi.1007069.s004
+
+https://mp.weixin.qq.com/s/LYBcfMILpvHL2LnguB2ebg
+

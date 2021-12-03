@@ -27,6 +27,8 @@ echo 'JX549382.1.genome : JX549382.1' >> snpEff.config
 ```
 [zhangbo@mu01 snpEff]$ java -jar snpEff.jar build -gff3 -v JX549382.1
 ```
+
+
 另一个实例：
 ```
 [zhangbo@mu01 snpEff_5.0]$ echo '# Database for SARS-CoV-2 (NC_045512.2)' >> snpEff.config
