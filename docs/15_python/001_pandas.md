@@ -26,6 +26,7 @@
   - [Collapse two rows into 1 in Pandas](#collapse-two-rows-into-1-in-pandas)
   - [把某列百分数转成浮点数](#把某列百分数转成浮点数)
   - [列字符型变成列浮点型](#列字符型变成列浮点型)
+  - [](#-1)
 
 <!-- /TOC -->
 
@@ -311,4 +312,25 @@ https://stackoverflow.com/questions/25669588/convert-percent-string-to-float-in-
 ## 列字符型变成列浮点型
 ```
 df["A"] = pd.to_numeric(df["A"], downcast="float")
+```
+
+## 
+```
+df['col_3'] = df[['col_1','col_2']].apply(lambda x: f(*x), axis=1)
+
+df['col_3'] = df.apply(lambda x: f(x['col 1'], x['col 2']), axis=1)
+
+df['col_3'] = df.apply(lambda x: f(x.col_1, x.col_2), axis=1)
+```
+
+更快
+```
+import pandas as pd
+import swifter
+
+def fnc(m,x,c):
+    return m*x+c
+
+df = pd.DataFrame({"m": [1,2,3,4,5,6], "c": [1,1,1,1,1,1], "x":[5,3,6,2,6,1]})
+df["y"] = df.swifter.apply(lambda x: fnc(x.m, x.x, x.c), axis=1)
 ```
