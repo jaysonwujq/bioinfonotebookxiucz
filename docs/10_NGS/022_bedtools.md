@@ -12,3 +12,4 @@ zero=$(bedtools genomecov -ibam [BAM] -g [ref.fasta] -bga | awk '$4==0 {bpCountZ
 nonzero=$(bedtools genomecov -ibam [BAM] -g [ref.fasta] -bga | awk '$4>0 {bpCountNonZero+=($3-$2)} {print bpCountNonZero}' | tail -1)
 percent=$(bc <<< "scale=6; ($nonzero / ($zero + $nonzero))*100")
 ```
+
