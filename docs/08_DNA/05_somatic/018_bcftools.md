@@ -63,3 +63,6 @@ https://raw.githubusercontent.com/samtools/bcftools/develop/INSTALL
 ```
 在~/.bashrc中屏蔽了conda的字段后，注销重新登陆，重新编译就pass了。
 ```
+
+## 
+https://medium.com/brown-compbiocore/building-a-consensus-sequence-with-vcf-files-db7407f3f86f
