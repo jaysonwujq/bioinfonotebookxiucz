@@ -86,19 +86,10 @@ cnvkit.py scatter Sample.cnr -s Sample.cns -o Sample-scatter.pdf
 cnvkit.py diagram Sample.cnr -s Sample.cns -o Sample-diagram.pdf
 ```
 
-### 单独绘图
-```
-/home/anaconda2/envs/cnvkit/bin/cnvkit.py scatter -s 700_bwa.sam.cn{s,r} -c chr7 -o scatter-chr7.pn
-```
-```
-/home/anaconda2/envs/cnvkit/bin/cnvkit.py diagram 700_bwa.sam.cnr
-```
 
-```
-/home/anaconda2/envs/cnvkit/bin/cnvkit.py batch /data1/data-sample/human-WGS/bwa-sam-bam/704_bwa.sam.bam -r my_flat_reference.cnn -d 704 -p 10
-```
 
-### target
+
+## target
 
 ```
 cnvkit.py target my_baits.bed --annotate refFlat.txt --split -o my_targets.bed
@@ -112,7 +103,7 @@ Since these regions (usually exons) may be of unequal size, the --split option d
 
 对于杂交捕获，如果靶不是均匀的tiled with uniform density
 
-### access
+## access
 The access command computes the locations of the accessible sequence regions for a given reference genome based on these masked-out sequences, treating long spans of ‘N’ characters as the inaccessible regions and outputting the coordinates of the regions between them.access命令基于这些被屏蔽的序列来计算给定参考基因组的可访问序列区域的位置，将“N”个字符的长跨度视为不可访问区域并输出它们之间的区域的坐标。
 
 ```
@@ -147,9 +138,9 @@ perl -ne 'chomp; @l=split("\t",$_); $size += $l[2]-$l[1]; print "$size\n"' SeqCa
 
 **target BED** vs **bait BED**: 
 CNVkit uses the bait BED file (provided by the vendor of your capture kit)
-For hybrid capture, **the targeted regions (or “primary targets”)** are the genomic regions your capture kit attempts to ensure are well covered, e.g. exons of genes of interest.
+For hybrid capture, **the targeted regions (or “primary targets”)** are the genomic regions your capture kit attempts to ensure are well covered, e.g. exons of genes of interest.指探针设计的理论区域，例如感兴趣的基因外显子区域
 
-**The baited regions (or “capture targets”)** are the genomic regions your kit actually captures, usually including about 50bp flanking either side of each target. Give CNVkit the bait/capture BED file, not the primary targets.Give CNVkit the bait/capture BED file, not the primary targets.
+**The baited regions (or “capture targets”)** are the genomic regions your kit actually captures, usually including about 50bp flanking either side of each target. Give CNVkit the bait/capture BED file, not the primary targets.Give CNVkit the bait/capture BED file, not the primary targets.探针实际捕获的区域，通常也包括bed区间两边大约50bp的范围
 |bed1|bed2|
 |---|---|
 |target BED|  bait BED|
@@ -160,7 +151,8 @@ Sequencing protocol:
 + hybridization capture ('hybrid'),
 + targeted amplicon sequencing ('amplicon'),
 + whole genome sequencing ('wgs')
-  
+
+#
 ## reference
 reference.cnn文件:
 ```
@@ -191,6 +183,10 @@ The confidence interval is calculated by bootstrapping (--ci), not by the summar
 
 You can use --filter in tumor analysis, too. It's mentioned in the germline tips page because it's common in germline analysis for the number of false positives to be problematic enough to require more automated filtering.
 
+## export
+- I recommend "export bed" for custom analysis. If you are analyzing tumor samples with some known amount of normal-cell contamination, use "call" or "rescale" first to adjust the log2 ratios for that contamination.
+- The ["export vcf"] output conforms to the VCF spec, which is a little unintuitive for describing CNVs. The CN field means absolute copy number, but it's only specified for copy number gains, while hemizygous or homozygous deletions are specified differently, as you're seeing.
+
 ## bintest
 + it looks like the log2 values in the bintest output are residuals. If the segments are provided, the residuals are calculated compared to the segment to which the bin belongs, and otherwise to the whole chromosome:
 
@@ -220,6 +216,13 @@ https://www.biostars.org/p/266688/
 https://github.com/etal/cnvkit/issues/429
 
 ###  
+| **log2_ratio ** | **CN** |
+|:---------------:|:------:|
+| 0               | 2      |
+| 0.58            | 3      |
+| 1               | 4      |
+|                 |        |
+
 + segmented log2 ratios 
 + copy-neutral
 +  single-copy losses (1) and gains (3), a few multi-copy gains (4) and homozygous deletions (0
@@ -232,10 +235,9 @@ https://github.com/etal/cnvkit/issues/429
 4. If the log2 value close to 0 it could instead just be noise or imperfect centering. But it is true that the neutral value, i.e. cutoff between loss and gain, is zero. In array CGH analysis (which CNVkit mimics) it's common to treat log2 values between +/- 0.2 as effectively neutral copy number, and focus on greater deviations from zero.
 5. The original copy number is the ploidy of your organism, e.g. humans are diploid, 2 copies of each autosome, and the sex chromosomes are XX or XY normally. If you use a flat reference for both tumor and normal, then you can interpret the log2 values as they are. If you used a single normal reference, then you should first check that the normal sample is copy-number-neutral at the location of interest (it probably is) before interpreting the tumor log2 ratio.
 6. If the log2 value close to 0 it could instead just be noise or imperfect centering. But it is true that the neutral value, i.e. cutoff between loss and gain, is zero. In array CGH analysis (which CNVkit mimics) it's common to treat log2 values between +/- 0.2 as effectively neutral copy number, and focus on greater deviations from zero.
+7. In your example, a log2 value of .38 corresponds to 2^(.38) = 1.3 times the reference ploidy. For a diploid genome, the absolute copy number would be 2 * 2^(.38) = 2.6, which you can probably round up to 3 assuming some reasonable level of normal-cell contamination. (See the documentation on tumor heterogeneity for more guidance on this topic.) ---- https://www.biostars.org/p/178685/
+8. You may also want to re-run the pipeline with a larger off-target bin size (e.g. batch --antitarget-avg-size 200000).
 
-For a certain region in the .cns file, the log2 value is 0.382191. In the .vcf file, SVLEN is 6812878 and the CN value is 3. What is the copy number then?
-
-In your example, a log2 value of .38 corresponds to 2^(.38) = 1.3 times the reference ploidy. For a diploid genome, the absolute copy number would be 2 * 2^(.38) = 2.6, which you can probably round up to 3 assuming some reasonable level of normal-cell contamination. (See the documentation on tumor heterogeneity for more guidance on this topic.) ---- https://www.biostars.org/p/178685/
 
 log2 of -9.96578 is equivalent to a tumour-to-normal ratio of:
 
@@ -249,6 +251,8 @@ Running the "batch" command without the -y flag assumes a female reference, with
 Rerunning "batch" with the -y flag, the expected ploidies of the sex chromosomes are 1 for X, 1 for Y. With a male reference a normal male sample with have log2(1/1) = 0 for both X and Y; a normal female sample will have log2(2/1) = +1 for X, log2(0/1) = -infinity (very low numbers) for Y. ---- https://www.biostars.org/p/190825/
 
 
+
+
 ## 过滤方法
 1) Set region size
 2) Filter regions according the coverage
@@ -259,3 +263,68 @@ Rerunning "batch" with the -y flag, the expected ploidies of the sex chromosomes
 + When you use flat reference, the log2 column will always be '0' and depth will always be '1' (you can check if this is the case in your reference file).
 + looking at the CNR file in your screenshot, you can see that log2 values are consistenly in the very negative range, suggesting that this region is indeed deleted. 
 
+---
+
+## relative copy number = copy ratio & copy ratio log2 & absolute copy number.
+
+gremline :
+absolute = log2(relative copy number + 1) 
+
+tumor :
+FOLD_CHANGE = 2.0 ** log2, CN = round(FOLD_CHANGE *2)
+
+
+The candidate CNV regions were chosen as regions with P-values less than 0.01 and log2 copy ratio >0.2 or <−0.2. 
+
+The theoretical values for autosomal chromosomes are
+One copy gain = log2(3/2) = 0.57 (3 copies vs. 2 copies in reference)
+One-copy loss = log2(1/2) = -1
+Two-copy gain = log2(4/2) = 1
+
+"No.Copies"=log2(0.1/2),
+"one.Copy"=log2(1/2),
+"neutral.Diploid"=log2(2/2),
+"three.copies"=log2(3/2),
+"four.copies"=log2(4/2))
+
+有的地方阈值是0.3
+
+The log2 ratio and CN are determined as follows:log2 ratio <−1.1 (CN = 0), log2 ratio−1.1 to−0.25 (CN = 1), log2 ratio−0.25 to 0.2(CN = 2), log2 ratio 0.2–0.7 (CN = 3), log2 ratio >0.7 (CN = 4) 
+ > https://www.researchgate.net/publication/348604740_T-Cell_Lymphoma_Clonality_by_Copy_Number_Variation_Analysis_of_T-Cell_Receptor_Genes
+
+`call -m` 
+> The call command with -m unspecified defaults to a hard-coded set of cutoffs that are more appropriate for solid tumor samples. The math you're expecting is appropriate for cell lines and germline samples; you can choose those cutoffs with the option call -m clonal. 
+
+> https://cnvkit.readthedocs.io/en/stable/pipeline.html#calling-methods
+
+
+cn<=1: [-25.477500, -0.250407]
+cn=2: [-0.249509, 0.199906]
+cn>=3: [0.20009, 3.48201]
+
+However, based on the formula log2((copy_nums+.5) / 2, the cutoffs should be:
+cn<=1: log ratio <= -0.4150375
+cn==2: log ratio = 0.3219281
+cn>=3: log ratio >= 0.8073549
+
+
+if log2 <= -4.3: CN=0
+if log2 <= -1: CN=1
+if log2 <= 0: CN=2
+if log2 <= 0.6: CN=3
+
+
+https://cnvkit.readthedocs.io/en/latest/cnvlib.html#cnvlib.call.absolute_threshold
+
+So the germline thresholds, rounding to the nearest log2(integer), could be calculated like:
+
+x = [0, 1, 2, 3, 4]
+>>> np.log2((np.array(x) + 0.5)/2)
+array([-2.        , -0.4150375 ,  0.32192809,  0.80735492,  1.169925  ])
+
+
+
+
+===
+
+https://www.keatslab.org/blog/dnacopynumberanditseffectsonlog2valuesandallelicratiosatdifferenttumorpurities

@@ -93,3 +93,10 @@ gatk3: https://github.com/broadinstitute/mutect/blob/69b7a37fcafe8a68f7470436f24
 
 gatk4:https://github.com/broadinstitute/gatk/blob/master/src/main/java/org/broadinstitute/hellbender/tools/walkers/mutect/filtering/M2FiltersArgumentCollection.java
 
+## 算法
+Icy☜♬☞冬至 17:09:00
+https://www.strand-ngs.com/files/promotions/SNP-WhitePaper-GATK.pdf
+
+Icy☜♬☞冬至 17:09:01
+https://resources.qiagenbioinformatics.com/white-papers/White_paper_on_probabilistic_variant_caller_1.1.pdf
+
