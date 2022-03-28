@@ -100,3 +100,4 @@ https://www.strand-ngs.com/files/promotions/SNP-WhitePaper-GATK.pdf
 Icy☜♬☞冬至 17:09:01
 https://resources.qiagenbioinformatics.com/white-papers/White_paper_on_probabilistic_variant_caller_1.1.pdf
 
+https://best-practices-for-processing-hts-data.readthedocs.io/en/latest/mutect2_pitfalls.html

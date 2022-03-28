@@ -8,3 +8,16 @@ https://silenwang.github.io
 
 We have not implemented nanopore yet.
 
+# cp 
+## cp ignore unchanged files
+```
+rsync -av --progress /source /destination/
+```
+
+```
+cp -u
+```
+
+```
+scp  `find /data/*.gz -type f -mtime -7` USER@SERVER:/backup/
+```
