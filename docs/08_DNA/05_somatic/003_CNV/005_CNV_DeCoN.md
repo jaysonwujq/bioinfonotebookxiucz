@@ -87,3 +87,11 @@ bed file:
 
 # ExCopyDepth
 https://static-content.springer.com/esm/art%3A10.1186%2F1471-2164-15-661/MediaObjects/12864_2014_6348_MOESM1_ESM.pdf
+
+
+https://www.jianshu.com/p/dfeb7958f641
+
+
+https://github.com/RahmanTeam/DECoN-test-files
+
+
