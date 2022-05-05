@@ -39,6 +39,8 @@ theme: default
 
 https://sfvideo.blob.core.windows.net/sitefinity/docs/default-source/user-guide-manual/analysis-guideline-variant-calling-data-with-umis.pdf?sfvrsn=d0aa3207_26
 
+https://sfvideo.blob.core.windows.net/sitefinity/docs/default-source/user-guide-manual/xgen-prism-dna-library-prep-kit-processing-sequencing-data-with-umis.pdf?sfvrsn=22991407_10
+
 ---
 
 ## Construct an unmmaped BAM tagged with UMIs
