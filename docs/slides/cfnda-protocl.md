@@ -55,3 +55,22 @@ The optimal way to generate a mapped BAM with UMIs depends on the raw data forma
 3.	fgbio’s **ExtractUmisFromBam** processes unmapped BAM fi	where the UMIs are contained within read 1 or read 2 sequences, and extracts the UMI sequences into the RX tag.
 
 ---
+
+
+ExtractUmisFromBam 
+    --molecular-index-tags ZA ZB
+align reads
+    ORIENTATIONS=FR
+GroupReadsByUmi
+    -s Paired
+
+ CallDuplexConsensusReads CallMolecularConsensusReads
+
+
+9. Extracting UMIs within sample index reads during demultiplexing 9
+
+https://www.n-genetics.com/products/1104/1023/19314.pdf
+
+
+https://www.n-genetics.com/products/1104/1023/19314.pdf
+
