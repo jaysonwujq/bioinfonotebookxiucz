@@ -1,32 +1,34 @@
 <!-- TOC -->
 
 - [2. 行列选择](#2-行列选择)
-  - [2.1 行选择](#21-行选择)
-    - [2.1.1 根据包含的字符串选择行](#211-根据包含的字符串选择行)
-    - [2.1.2 选择包含空格的行](#212-选择包含空格的行)
-  - [2.2. 列选择](#22-列选择)
-    - [2.2.1. 根据列值选择行](#221-根据列值选择行)
-    - [2.2.2. 选择列值不等于some_value的行](#222-选择列值不等于some_value的行)
-    - [2.2.3. 列名里是否包含字符串](#223-列名里是否包含字符串)
+    - [2.1 行选择](#21-行选择)
+        - [2.1.1 根据包含的字符串选择行](#211-根据包含的字符串选择行)
+        - [2.1.2 选择包含空格的行](#212-选择包含空格的行)
+    - [2.2. 列选择](#22-列选择)
+        - [2.2.1. 根据列值选择行](#221-根据列值选择行)
+        - [2.2.2. 选择列值不等于some_value的行](#222-选择列值不等于some_value的行)
+        - [2.2.3. 列名里是否包含字符串](#223-列名里是否包含字符串)
 - [3 常见操作](#3-常见操作)
-  - [3.1 去重复](#31-去重复)
-  - [3.2 从python 中的列名称检索列索引](#32-从python-中的列名称检索列索引)
-    - [3.2.1. get_loc()](#321-get_loc)
-    - [3.2.2. searchsorted()](#322-searchsorted)
-  - [3.3 检索某字母开头的行](#33-检索某字母开头的行)
-  - [3.4 读写](#34-读写)
-  - [3.5 DataFrame.to_excel多次写入不同Sheet](#35-dataframeto_excel多次写入不同sheet)
-  - [3.6 列计算](#36-列计算)
+    - [3.1 去重复](#31-去重复)
+    - [3.2 从python 中的列名称检索列索引](#32-从python-中的列名称检索列索引)
+        - [3.2.1. get_loc()](#321-get_loc)
+        - [3.2.2. searchsorted()](#322-searchsorted)
+    - [3.3 检索某字母开头的行](#33-检索某字母开头的行)
+    - [3.4 读写](#34-读写)
+    - [3.5 DataFrame.to_excel多次写入不同Sheet](#35-dataframeto_excel多次写入不同sheet)
+    - [3.6 列计算](#36-列计算)
 - [4. Pandas中的map(), apply()和applymap()的应用](#4-pandas中的map-apply和applymap的应用)
-  - [Remap values in  column with a dict](#remap-values-in--column-with-a-dict)
-      - [Ref_Info](#ref_info)
-  - [Get top biggest values from each column of the .DataFrame](#get-top-biggest-values-from-each-column-of-the-dataframe)
-  - [merge multiple dfs](#merge-multiple-dfs)
-    - [](#)
-  - [Collapse two rows into 1 in Pandas](#collapse-two-rows-into-1-in-pandas)
-  - [把某列百分数转成浮点数](#把某列百分数转成浮点数)
-  - [列字符型变成列浮点型](#列字符型变成列浮点型)
-  - [](#-1)
+    - [Remap values in  column with a dict](#remap-values-in--column-with-a-dict)
+            - [Ref_Info](#ref_info)
+    - [Get top biggest values from each column of the .DataFrame](#get-top-biggest-values-from-each-column-of-the-dataframe)
+    - [merge multiple dfs](#merge-multiple-dfs)
+        - [](#)
+    - [Collapse two rows into 1 in Pandas](#collapse-two-rows-into-1-in-pandas)
+    - [把某列百分数转成浮点数](#把某列百分数转成浮点数)
+    - [列字符型变成列浮点型](#列字符型变成列浮点型)
+    - [](#-1)
+    - [根据数据框的某两列过滤另一个数据框](#根据数据框的某两列过滤另一个数据框)
+    - [map applymap and apply](#map-applymap-and-apply)
 
 <!-- /TOC -->
 
@@ -288,7 +290,7 @@ pd.set_option('display.max_rows', None)
 #设置value的显示长度为100，默认为50
 pd.set_option('max_colwidth',100)
 
-```
+``` 
 
 ## Collapse two rows into 1 in Pandas
 
@@ -334,3 +336,36 @@ def fnc(m,x,c):
 df = pd.DataFrame({"m": [1,2,3,4,5,6], "c": [1,1,1,1,1,1], "x":[5,3,6,2,6,1]})
 df["y"] = df.swifter.apply(lambda x: fnc(x.m, x.x, x.c), axis=1)
 ```
+
+##根据数据框的某两列过滤另一个数据框
+```
+df1 = pd.DataFrame({'c': ['A', 'A', 'B', 'C', 'C'],
+                    'k': [1, 2, 2, 2, 2],
+                    'l': ['a', 'b', 'a', 'a', 'd']})
+df2 = pd.DataFrame({'c': ['A', 'C'],
+                    'l': ['b', 'a']})
+#方法一：
+keys = list(df2.columns.values)
+i1 = df1.set_index(keys).index
+i2 = df2.set_index(keys).index
+df1[~i1.isin(i2)]
+
+#方法二：
+d = (
+    df1.merge(df2, 
+              on=['c', 'l'],
+              how='left', 
+              indicator=True)
+    .query('_merge == "left_only"')
+    .drop(columns='_merge')
+)
+
+#df_canonical[
+pd.Series(list(zip(df_canonical.CHROM.values, df_canonical.POS.values))
+         ).isin(list(zip(df_canonical_dedup.CHROM.values, df_canonical_dedup.POS.values)))
+]
+```
+
+## map applymap and apply
+
+https://stackoverflow.com/questions/19798153/difference-between-map-applymap-and-apply-methods-in-pandas

@@ -148,3 +148,9 @@ https://zhuanlan.zhihu.com/p/259640277
 [zhangbo@mu01 bin]$ tmux source-file ~/.tmux.conf
 '~/.tmux/plugins/tpm/tpm' returned 1
 ```
+
+## 意外崩溃恢复
+```
+tmux new -s C
+prefix +S
+```

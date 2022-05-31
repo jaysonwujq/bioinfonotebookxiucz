@@ -1,3 +1,42 @@
+<!-- TOC -->
+
+- [UMI 介绍](#umi-介绍)
+    - [单双端UMI](#单双端umi)
+    - [CallDuplexConsensusReads与FilterConsensusReads](#callduplexconsensusreads与filterconsensusreads)
+- [Construct an unmmaped BAM tagged with UMIs](#construct-an-unmmaped-bam-tagged-with-umis)
+- [Align reads](#align-reads)
+- [Map BAM to consensus reads](#map-bam-to-consensus-reads)
+- [Construct an unmmaped BAM tagged with UMIs](#construct-an-unmmaped-bam-tagged-with-umis-1)
+        - [Multiple tools exist to help with this process:](#multiple-tools-exist-to-help-with-this-process)
+
+<!-- /TOC -->
+
+## UMI 介绍
+```
+UMI 有单端UMI(例如swift)也有双端UMI(例如Illumina TSO500)
+
+UMI 也可以分为固定种类的UMI(例如Illumina TSO500)固定种类是120，双端就是120*120，还有就是随机碱基的UMI，例如swift与IDT（双端随机3碱基长度种类就是64*64）
+
+UMI 添加种类一种是将UMI添加到测序文库的index位置（swift），一种是将UMI添加到测序文库的reads前端（IDT）
+```
+### 单双端UMI
+```
+单端UMI在<------------->CallMolecularConsensusReads
+双端UMI在<------------->CallDuplexConsensusReads
+单端UMI在<------------->GroupReadsByUmi（adjacency）
+双端UMI在<------------->GroupReadsByUmi（paired)
+```
+
+### CallDuplexConsensusReads与FilterConsensusReads
+```
+在fgbio中对于ConsensusReads与FilterConsensusReads最小的支持数参数举例--min-reads 10 5 3
+
+In each case if fewer than three values are supplied, the last value is repeated (i.e. 80 40 -> 80 40 40 and 0.1 -> 0.1 0.1 0.1. The first value applies to the final consensus read, the second value to one single-strand consensus, and the last value to the other single-strand consensus. It is required that if values two and three differ, the more stringent value comes earlier.
+
+因此如果你对数据存在链特异性的问题会丢掉很多数据我们目前设置的是--min-reads 1 0 0系统参数是--min-reads 1 1 1
+```
+
+
 ## Construct an unmmaped BAM tagged with UMIs
 ```
 java \

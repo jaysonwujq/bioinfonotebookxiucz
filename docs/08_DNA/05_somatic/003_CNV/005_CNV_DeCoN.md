@@ -24,10 +24,20 @@ cp packrat/packrat_source/.Rprofile ./
 下载依赖的包，对应版本可以搜索得到
 ```
 https://cran.r-project.org/src/contrib/Archive/digest/digest_0.6.8.tar.gz
-wget https://cran.r-project.org/src/contrib/Archive/VGAM/VGAM_0.9-8.tar.gz
+#wget https://cran.r-project.org/src/contrib/Archive/VGAM/VGAM_0.9-8.tar.gz
+https://cran.microsoft.com/src/contrib/Archive/VGAM/
+https://cran.microsoft.com/src/contrib/Archive/magrittr/magrittr_1.5.tar.gz
 
-source("http://bioconductor.org/biocLite.R")
+https://cran.microsoft.com/src/contrib/Archive/ggplot2/ggplot2_1.0.1.tar.gz
+https://cran.microsoft.com/src/contrib/Archive/scales/scales_0.2.4.tar.gz
+
+source("http://bioconductor.org/biocLite.R") #不是https
 biocLite("BiocParallel")
+
+> source("http://bioconductor.org/biocLite.R")
+
+/public/frasergen/MED/software/SVtools/DECoN-master/Linux/packrat/src
+/public/frasergen/MED/software/R/R-3.1.2/bin/R CMD INSTALL stringr/stringr_1.0.0.tar.gz
 
 ```
 ### 修改脚本

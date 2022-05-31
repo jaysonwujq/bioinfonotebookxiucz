@@ -31,8 +31,6 @@ AML from WashU (http://aml31.genome.wustl.edu/)
 filter_file7["site_tmp"].isin(hotsites)
 filter_file7["site_tmp"].apply(lambda x: any([ i in x for i in hotsites]))
 ```
-### 20200106
-因为VEP对每个转绿本单独进行注释，所以在统计时，任一转录本认为有害即认为该位点有害。
 
 
 ### 20191230
