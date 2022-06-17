@@ -29,6 +29,7 @@
     - [](#-1)
     - [根据数据框的某两列过滤另一个数据框](#根据数据框的某两列过滤另一个数据框)
     - [map applymap and apply](#map-applymap-and-apply)
+    - [np.isnan pd.null pd.isna](#npisnan-pdnull-pdisna)
 
 <!-- /TOC -->
 
@@ -45,14 +46,6 @@ data1[5:10] #这里取6到11行的所有数据，而不是列数据
 ```
 ```
 data = DataFrame(np.arange(16).reshape(4,4),index=list('abcd'),columns=list('wxyz'))
-
-data['w']  #选择表格中的'w'列，使用类字典属性,返回的是Series类型
-
-data.w    #选择表格中的'w'列，使用点属性,返回的是Series类型
-
-data[['w']]  #选择表格中的'w'列，返回的是DataFrame属性
-
-data[['w','z']]  #选择表格中的'w'、'z'列
 
 data[0:2]  #返回第1行到第2行的所有行，前闭后开，包括前不包括后
 
@@ -94,6 +87,17 @@ tmp.loc[tmp["Related Diseases"].str.contains("Leuk", na = False)]
 ```
 
 ## 2.2. 列选择
+```
+data = DataFrame(np.arange(16).reshape(4,4),index=list('abcd'),columns=list('wxyz'))
+
+data['w']  #选择表格中的'w'列，使用类字典属性,返回的是Series类型
+
+data.w    #选择表格中的'w'列，使用点属性,返回的是Series类型
+
+data[['w']]  #选择表格中的'w'列，返回的是DataFrame属性
+
+data[['w','z']]  #选择表格中的'w'、'z'列
+```
 ### 2.2.1. 根据列值选择行
 ```
 df.loc[df['column_name'] == some_value]
@@ -126,6 +130,8 @@ df.columns.str.match("xxx")
 ```
 df.loc[0:1,['A','B']] ##  取行index为0与1之间的,列标签为A,B的，返回DataFrame
 ```
+
+
 
 # 3 常见操作
 ## 3.1 去重复
@@ -369,3 +375,6 @@ pd.Series(list(zip(df_canonical.CHROM.values, df_canonical.POS.values))
 ## map applymap and apply
 
 https://stackoverflow.com/questions/19798153/difference-between-map-applymap-and-apply-methods-in-pandas
+
+## np.isnan pd.null pd.isna
+

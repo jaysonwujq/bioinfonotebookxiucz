@@ -49,5 +49,12 @@ NA12878 CNV Benchmark：
 + The CNVs in this GS set range from 50 bp to 453,312 bp with 1,941 and 135 autosomal deletions and duplications, respectively.
 
 
+# Cancer-like mixture with Genome in a Bottle samples
+This example simulates somatic cancer calling using a mixture of two Genome in a Bottle samples, NA12878 as the “tumor” mixed with NA24385 as the background. The Hartwig Medical Foundation and Utrecht Medical Center generated this “tumor/normal” pair by physical mixing of samples prior to sequencing. The GiaB FTP directory has more details on the design and truth sets. The sample has variants at 15% and 30%, providing the ability to look at lower frequency mutations.
 
-
+To get the data:
+```
+wget https://raw.githubusercontent.com/bcbio/bcbio-nextgen/master/config/examples/cancer-giab-na12878-na24385-getdata.sh
+bash cancer-giab-na12878-na24385-getdata.sh
+```
+https://bcbio-nextgen.readthedocs.io/en/latest/contents/somatic_variants.html#workflow4-cancer-like-mixture-with-genome-in-a-bottle-samples

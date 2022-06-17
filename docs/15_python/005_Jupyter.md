@@ -46,7 +46,10 @@ pd.set_option('max_colwidth',100)
 ### window查看端口
 ```
 netstat -ano | findstr "8813"
+taskkill -PID 23144 -F
 ```
 #### Ref_Info 
 原文链接：https://blog.csdn.net/patrick75/article/details/51473884
 https://www.cnblogs.com/yangxiaolan/p/5778305.html
+
+https://blog.csdn.net/qq_40944311/article/details/121396856
