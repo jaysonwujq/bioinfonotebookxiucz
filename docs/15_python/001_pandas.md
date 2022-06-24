@@ -30,6 +30,7 @@
     - [根据数据框的某两列过滤另一个数据框](#根据数据框的某两列过滤另一个数据框)
     - [map applymap and apply](#map-applymap-and-apply)
     - [np.isnan pd.null pd.isna](#npisnan-pdnull-pdisna)
+    - [aggregate transformate](#aggregate-transformate)
 
 <!-- /TOC -->
 
@@ -377,4 +378,7 @@ pd.Series(list(zip(df_canonical.CHROM.values, df_canonical.POS.values))
 https://stackoverflow.com/questions/19798153/difference-between-map-applymap-and-apply-methods-in-pandas
 
 ## np.isnan pd.null pd.isna
+
+## aggregate transformate
+aggregation会返回数据的缩减版本，而transformation能返回完整数据的某一变换版本供我们重组。这样的transformation，输出的形状和输入一致。一个常见的例子是通过减去分组平均值来居中数据。
 
