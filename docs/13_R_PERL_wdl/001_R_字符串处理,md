@@ -1,0 +1,11 @@
+某列的数字和字符串进行分割
+```
+#df2$num <-  str_split_fixed(df2$group, "H", 2)
+#df2$num <- as.numeric(gsub("^[H]", "", df2$group))
+#lm(Ct ~ num1, data = df2) -> model
+
+df3 <- df2 %>% separate(group, 
+           into = c("group", "num"), 
+           sep = "(?<=[A-Za-z])(?=[0-9])"
+           )
+```

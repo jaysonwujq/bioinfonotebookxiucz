@@ -10,7 +10,7 @@
     - [shell数组与字符串](#shell数组与字符串)
             - [Ref_Info](#ref_info)
 - [目录及文件操作](#目录及文件操作)
-  - [删除大量文件夹](#删除大量文件夹)
+    - [删除大量文件夹](#删除大量文件夹)
 
 <!-- /TOC -->
 
@@ -124,6 +124,32 @@ echo '${@:$#-1:1}' ${@:$#-1:1} #获取倒数数第二个参数
 #echo (${@:1:#})
 ```
 
+```
+1.
+#!/bin/bash
+string="hello,shell,haha"  
+array=(${string//,/ })  
+for var in ${array[@]}
+do
+   echo $var
+done 
+2.
+#!/bin/bash
+string="hello,shell,haha"
+OLD_IFS="$IFS"
+IFS=","
+array=($string)
+IFS="$OLD_IFS"
+for var in ${array[@]}
+do
+   echo $var
+done
+3.awk方式
+var1=`echo "hello world"|awk -F '|' '{print $1}'`
+echo $var1
+var2=`echo "hello world"|awk -F ' ' '{print $2}'`
+echo $var2
+```
 ## shell数组与字符串
 ```
 f=/home/usrname/dir/x.txt

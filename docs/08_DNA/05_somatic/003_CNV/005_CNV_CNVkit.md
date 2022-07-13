@@ -2,23 +2,25 @@
 
 - [Install](#install)
 - [Concept](#concept)
-  - [流程](#流程)
-    - [单独绘图](#单独绘图)
+    - [流程](#流程)
     - [target](#target)
-      - [Bin size and resolution](#bin-size-and-resolution)
+            - [Bin size and resolution](#bin-size-and-resolution)
     - [access](#access)
-    - [bed](#bed)
-  - [reference](#reference)
-  - [fix](#fix)
-  - [segmetrics](#segmetrics)
-  - [bintest](#bintest)
+        - [bed](#bed)
+    - [reference](#reference)
+    - [fix](#fix)
+    - [segmetrics](#segmetrics)
+    - [export](#export)
+    - [bintest](#bintest)
+    - [call](#call)
 - [output](#output)
 - [深入](#深入)
-  - [weight值在cns文件中意思](#weight值在cns文件中意思)
-    - [](#)
-    - [sex chromosome](#sex-chromosome)
-  - [过滤方法](#过滤方法)
-  - [单个样本](#单个样本)
+    - [weight值在cns文件中意思](#weight值在cns文件中意思)
+        - [](#)
+        - [sex chromosome](#sex-chromosome)
+    - [过滤方法](#过滤方法)
+    - [单个样本](#单个样本)
+    - [relative copy number = copy ratio & copy ratio log2 & absolute copy number.](#relative-copy-number--copy-ratio--copy-ratio-log2--absolute-copy-number)
 
 <!-- /TOC -->
 
@@ -190,6 +192,16 @@ You can use --filter in tumor analysis, too. It's mentioned in the germline tips
 ## bintest
 + it looks like the log2 values in the bintest output are residuals. If the segments are provided, the residuals are calculated compared to the segment to which the bin belongs, and otherwise to the whole chromosome:
 
+## call
+```
+chromosome      start   end     gene    log2    baf     cn      cn1     cn2     depth   probes  weight
+2       236578628       237490302       AGAP1,GBX2,ASB18,IQCA1,ACKR3    -9.96578        0.00387202      -1      0       -1      26.4653 99      49.9862
+
+In this case, it looks like the region is entirely deleted in tumour, i.e., no copies. The BAF is virtually nil / zero, which, coupled with the log2 ratio, implies complete deletion.
+
+log2 of -9.96578 is equivalent to a tumour-to-normal ratio of: 2^(-9.96578) = 0.00100000296
+```
+ > Allelic imbalance, including copy-number-neutral loss of heterozygosity (LOH), is then apparent when a segment’s “cn1” and “cn2” fields have different values.
 
 
 # output
