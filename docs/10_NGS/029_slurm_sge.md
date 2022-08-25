@@ -21,6 +21,24 @@ for k in {2..100};
     done
 ```
 
+fs_status
+```
+#!/bin/bash
+#负载统计
+node_list=(haba0240 haba0241 haba0242 haba0307 haba0308 haba0309 haba0303 haba0301 haba0137 haba0151 haba0315)
+
+for node in ${node_list[@]}; do
+            partition=`sinfo -n $node | grep $node | awk '{print $1}'`
+        node_info=`pestat | grep $node | sed 's#*##g'`
+        node_status=`echo $node_info | awk -F [' ']+ '{print $2}'`
+        node_cpuUse=`echo $node_info | awk -F [' ']+ '{print $3}'`
+        node_cpuAv=`expr 128 - $node_cpuUse`
+        node_memUse=`echo $node_info | awk -F [' ']+ '{print $7}'`
+        node_memUse_G=`expr $node_memUse / 1024 - 20`
+        echo "队列: $partition 节点: $node 状态: $node_status 可用CPU: $node_cpuAv 可用内存: $node_memUse_G GB"
+done
+```
+
 # qsub
 ```
 #查看已结束的任务

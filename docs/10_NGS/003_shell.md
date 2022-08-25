@@ -1,24 +1,28 @@
 <!-- TOC -->
 
-    - [ack](#ack)
-    - [rsync](#rsync)
-    - [tee](#tee)
-        - [统计fastq中每个读长的counts数](#统计fastq中每个读长的counts数)
-    - [shell数组](#shell数组)
-    - [位置参数](#位置参数)
-    - [字符串截取](#字符串截取)
-    - [shell数组与字符串](#shell数组与字符串)
-            - [Ref_Info](#ref_info)
-- [目录及文件操作](#目录及文件操作)
-    - [删除大量文件夹](#删除大量文件夹)
+- [cece](#cece)
+    - [0.1. ack](#01-ack)
+    - [0.2. rsync](#02-rsync)
+    - [0.3. tee](#03-tee)
+        - [0.3.1. 统计fastq中每个读长的counts数](#031-统计fastq中每个读长的counts数)
+    - [0.4. shell数组](#04-shell数组)
+    - [0.5. 位置参数](#05-位置参数)
+    - [0.6. 字符串截取](#06-字符串截取)
+    - [0.7. shell数组与字符串](#07-shell数组与字符串)
+            - [0.7.0.1. Ref_Info](#0701-ref_info)
+- [1. 目录及文件操作](#1-目录及文件操作)
+    - [1.1. 删除大量文件夹](#11-删除大量文件夹)
+- [2. rsync 传输文件](#2-rsync-传输文件)
+- [3. mv & find](#3-mv--find)
 
 <!-- /TOC -->
 
-## ack
-## rsync
-## tee
+# cece
+## 0.1. ack
+## 0.2. rsync
+## 0.3. tee
 
-### 统计fastq中每个读长的counts数
+### 0.3.1. 统计fastq中每个读长的counts数
 ```
 直接用awk命令
 
@@ -37,7 +41,7 @@ ggplot(reads, aes(x=reads$V2, y=reads$V1)) +
 	ggtitle('Read Length Distribution')
 ```
 
-## shell数组
+## 0.4. shell数组
 ```
 https://www.cnblogs.com/qdhxhz/p/10902110.html
 
@@ -68,14 +72,14 @@ echo "/local_data1/work/zhangbo/software/samtools-1.9/samtools view -@ 4 -F 256 
 done
 ```
 
-## 位置参数
+## 0.5. 位置参数
 ```
 $* 是把所有的参数当成为一个整体 
 $@ 则是把每个参数独立看待。
 $# 表示位置参数的个数, 也可以理解为最后一个参数的下标
 ``` 
 
-## 字符串截取
+## 0.6. 字符串截取
 Shell 截取字符串通常有两种方式：
 + 从指定位置开始截取，
   + 1) 从字符串左边开始计数
@@ -150,7 +154,7 @@ echo $var1
 var2=`echo "hello world"|awk -F ' ' '{print $2}'`
 echo $var2
 ```
-## shell数组与字符串
+## 0.7. shell数组与字符串
 ```
 f=/home/usrname/dir/x.txt
 #获取文件名
@@ -167,11 +171,11 @@ http://c.biancheng.net/view/1120.html
 https://www.cnblogs.com/fengbohello/p/5954895.html
 
 
-#### Ref_Info
+#### 0.7.0.1. Ref_Info
 https://www.jianshu.com/p/eaa3406b7cff
 
 
-# 目录及文件操作
+# 1. 目录及文件操作
 列出当前目录下的所有文件（包括隐藏文件）的绝对路径， 对目录不做递归
 ```
 find  $PWD -maxdepth 1  | xargs ls -dl
@@ -182,7 +186,7 @@ find  $PWD -maxdepth 1  | xargs ls -dl
 find  $PWD | xargs ls -ld
 ```
 
-## 删除大量文件夹
+## 1.1. 删除大量文件夹
 
 示例
 清空目录或文件，如下： 
@@ -202,3 +206,10 @@ https://blog.csdn.net/cywosp/article/details/8285842
 [root@mu01 lumpy-sv]# find .  -type f -delete -print
 [root@mu01 lumpy-sv]# find .  -type d -delete -print 
 ```
+
+# 2. rsync 传输文件
+https://blog.csdn.net/qq_21442867/article/details/118680808
+
+# 3. mv & find
+如何优雅的给 cp 和 mv 命令添加一个高颜值的进度条
+https://mp.weixin.qq.com/s/m0u-S3fzSY9TLxDrD041dA

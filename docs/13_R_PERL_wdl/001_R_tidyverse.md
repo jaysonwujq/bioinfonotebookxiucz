@@ -1,0 +1,6 @@
+library(tidyverse)
++ 根据值选择观察（记录），filter()
++ 对行重新排序，arrange()
++ 根据名字选择变量，select()
++ 根据已知的变量创建新的变量，mutate()
++ 将许多值塌缩为单个描述性汇总，summarize()

@@ -37,3 +37,20 @@ mv hg19_cosmic90_sort.txt hg19_cosmic90.txt
 https://pzweuj.github.io/2018/07/27/annovar-clinvar.html
 
 https://zhengzexin.com/archives/automatic_update_Clinvar_db_for_ANNOVAR/
+
+如果想扩大剪接位点两侧突变检测范围 , 在-argument 参数后边对应 refGene数据库的位置 添加-splicing_threshold 10 ， 如： -argument '-splicing_threshold 10 -hgvs' 引号内表示对refGene 数据库进行 -splicing_threshold 10 和 -hgvs 两个处理，所以用引号引起来。
+
+## clinvar 数据库处理
+```
+>>> x = b'\xe9'
+>>> x.decode()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe9 in position 0: unexpected end of data
+>>> x.decode('latin1').encode('utf-8')
+b'\xc3\xa9'
+>>> x.decode('latin1')
+'é'
+>>> x.decode('latin1').encode('utf-8')
+b'\xc3\xa9'
+```
