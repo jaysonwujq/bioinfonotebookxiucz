@@ -1,5 +1,7 @@
 #### Removing adapters
 接头的种类：
+https://teichlab.github.io/scg_lib_structs/methods_html/Illumina.html
+
 
 http://tucf-genomics.tufts.edu/home/faq
 
