@@ -2,3 +2,5 @@
 ```
 minimap2 -d co92.min co92.fna
 ```
+
+https://github.com/HKU-BAL/Clair3

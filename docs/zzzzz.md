@@ -122,7 +122,7 @@ https://github.com/ShixiangWang/DoAbsolute
 dna rna 整合 https://github.com/griffithlab/regtools
 
 
-线粒体 : https://link.springer.com/article/10.1007%2Fs00414-019-02205-y
+
 
 ## bgi数据处理
 本地集群上：

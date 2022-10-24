@@ -21,3 +21,17 @@ r.content  http响应内容的二进制形式（如图片是由二进制存储�
 r.headers  http响应的响应头
 r.raise_for_status http请求状态码不是200则会引发HTTPError异常
 ```
+
+模板
+```
+import requests
+from lxml import etree
+#r = requests.get(url = url,timeout=30)
+#r.status_code
+#html = r.content.decode()
+
+session = requests.Session()
+r = session.get(URL)
+root = etree.HTML(r.content)
+items = root.xpath('//*[@id="rankCont"]/div[1]/div[2]/table/tbody/tr')
+```
